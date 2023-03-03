@@ -9,9 +9,6 @@ plugins {
 	kotlin("plugin.jpa") version "1.7.22"
 }
 apply(plugin = "io.spring.dependency-management")
-//springBoot {
-//	mainClass.set("com.learning.hub.LearningHubApplication")
-//}
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
@@ -45,6 +42,6 @@ tasks.withType<Test> {
 
 tasks.withType<Jar> {
 	manifest {
-		attributes["Main-Class"] = "com.learning.hub.LearningHubApplication"
+		attributes["Main-Class"] = "com.learning.hub.LearningHubApplicationKt"
 	}
 }

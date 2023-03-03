@@ -1,1 +1,0 @@
-/home/lukasz/Test/learning-hub/learning-hub-server/build/classes/kotlin/main/com/learning/hub/Controller.class:/home/lukasz/Test/learning-hub/learning-hub-server/build/classes/kotlin/main/com/learning/hub/LearningHubApplication.class:/home/lukasz/Test/learning-hub/learning-hub-server/build/classes/kotlin/main/com/learning/hub/LearningHubApplicationKt.class
