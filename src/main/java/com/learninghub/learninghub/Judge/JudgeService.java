@@ -22,7 +22,7 @@ public class JudgeService {
 
     @PostMapping("/v1/judge/run-code")
     public String runCode(@RequestBody String code) {
-        System.out.println(code);
+        System.out.println("Test: " + code);
         return "I'm judge!";
     }
 }
