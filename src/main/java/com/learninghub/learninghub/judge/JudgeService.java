@@ -2,7 +2,7 @@ package com.learninghub.learninghub.judge;
 
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,17 +15,19 @@ public class JudgeService {
 
     public void runCode(JudgeParams judgeParams) {
         String containerName = "container" + judgeParams.getTestCase();
-        System.out.println(containerName);
-        try {
-            String content = Files.readString(Path.of("/home/michal/Desktop/learning-hub-server/src/main/java/com/learninghub/learninghub/judge/docker/files/hello.c"), StandardCharsets.UTF_8);
-            judgeParams.setCode(content);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        execCommand(scriptsPath + "runContainer.sh " + containerName);
-//        execCommand("docker exec -i container10 sh -c \"echo " + judgeParams.getCode() + " > hello.c\"");
-//        execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + dockerPath + "files");
-//        execCommand(scriptsPath + "compileCode.sh " + containerName + " hello.c");
+//        judgeParams.setCode(getCode("hello.c"));
+//        String testIn = getCode("test.in");
+//        String testOut = getCode("test.out");
+//        makeFile("test.c", judgeParams.getCode());
+//        makeFile("test.in", testIn);
+//        makeFile("test.out", testOut);
+//        execCommand(scriptsPath + "runContainer.sh " + containerName);
+//        execCommand("docker cp /tmp/test.c " + containerName + ":/");
+//        execCommand("docker cp /tmp/test.in " + containerName + ":/");
+//        execCommand("docker cp /tmp/test.out " + containerName + ":/");
+//        execCommand("docker exec " + containerName + " gcc /test.c -o main");
+//        execCommand("docker exec " + containerName + " bash -c \"/main < test.in > answer\"");
+        //docker exec "app_$i" bash -c "echo 'server.url=$server_url' >> /home/app/.app/app.config"
     }
 
     private void execCommand(String command) {
@@ -43,6 +45,23 @@ public class JudgeService {
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void makeFile(String filename, String content) {
+        try (PrintWriter out = new PrintWriter("/tmp/" + filename)) {
+            out.println(content);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // FOR DEBUG
+    private String getCode(String file) {
+        try {
+            return Files.readString(Path.of("/home/michal/Desktop/learning-hub-server/src/main/java/com/learninghub/learninghub/judge/docker/files/" + file), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
