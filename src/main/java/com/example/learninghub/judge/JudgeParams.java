@@ -1,4 +1,4 @@
-package com.learninghub.learninghub.judge;
+package com.example.learninghub.judge;
 
 import lombok.*;
 

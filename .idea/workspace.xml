@@ -5,11 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d744dc9-1913-4922-8cb2-2f56fdd91d2c" name="Changes" comment="Basic judge logic implemented - still not working completely">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/learninghub/judge/JudgeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/JudgeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/JudgeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/files/diffCode.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/files/runCode.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/files/solution.out" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/files/test.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learninghub/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/LearningHubApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learninghub/LearningHubApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/JudgeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learninghub/judge/JudgeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/JudgeParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learninghub/judge/JudgeParams.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/JudgeService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/docker/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/files/hello.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/files/test.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/files/test.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/scripts/buildImage.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/docker/scripts/buildImage.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/scripts/compileCode.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/scripts/copyToContainer.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/docker/scripts/copyToContainer.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/scripts/runContainer.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/docker/scripts/runContainer.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/learninghub/learninghub/LearningHubApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/learninghub/LearningHubApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,18 +125,33 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/docker" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/files" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.LearningHubApplication">
+  <component name="RunManager" selected="Application.com.example.learninghub.LearningHubApplication">
     <configuration name="LearningHubApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.learninghub.learninghub.LearningHubApplication" />
       <module name="learning-hub" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.learninghub.learninghub.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.example.learninghub.LearningHubApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.learninghub.LearningHubApplication" />
+      <module name="learning-hub" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.learninghub.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -152,6 +178,7 @@
       <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
       <method v="2" />
     </configuration>
     <configuration name="learning-hub-server [resolveMainClassName]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -173,9 +200,7 @@
       <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" requestIdentifier="#1" runType="Run single request">
+      <ForceTestExec>false</ForceTestExec>
       <method v="2" />
     </configuration>
     <configuration name="LearningHubApplicationKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
@@ -203,16 +228,15 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.com.example.learninghub.LearningHubApplication" />
       <item itemvalue="Application.LearningHubApplication" />
       <item itemvalue="Gradle.learning-hub-server [clean]" />
       <item itemvalue="Gradle.learning-hub-server [resolveMainClassName]" />
-      <item itemvalue="HTTP Request.generated-requests | #1" />
       <item itemvalue="Kotlin.LearningHubApplicationKt" />
-      <item itemvalue="Spring Boot.LearningHubApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="HTTP Request.generated-requests | #1" />
+        <item itemvalue="Application.com.example.learninghub.LearningHubApplication" />
         <item itemvalue="Application.LearningHubApplication" />
         <item itemvalue="Kotlin.LearningHubApplicationKt" />
         <item itemvalue="Gradle.learning-hub-server [clean]" />

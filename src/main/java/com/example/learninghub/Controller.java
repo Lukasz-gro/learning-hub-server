@@ -1,4 +1,4 @@
-package com.learninghub.learninghub;
+package com.example.learninghub;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

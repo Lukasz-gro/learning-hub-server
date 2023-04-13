@@ -1,4 +1,4 @@
-package com.learninghub.learninghub.judge;
+package com.example.learninghub.judge;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +20,9 @@ public class JudgeController {
     }
 
     @PostMapping("run-code")
-    public void runCode(@RequestBody JudgeParams judgeParams) {
-        judgeService.runCode(judgeParams);
+    @ResponseBody
+    public String runCode(@RequestBody JudgeParams judgeParams) {
+        return judgeService.runCode(judgeParams);
     }
 
 }
