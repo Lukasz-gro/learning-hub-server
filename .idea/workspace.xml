@@ -4,26 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d744dc9-1913-4922-8cb2-2f56fdd91d2c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+    <list default="true" id="6d744dc9-1913-4922-8cb2-2f56fdd91d2c" name="Changes" comment="Basic judge logic implemented - still not working completely">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/learninghub/judge/JudgeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/learning/hub/Controller.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/learning/hub/LearningHubApplication.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/com/learning/hub/LearningHubApplicationTests.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learninghub/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/LearningHubApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learninghub/LearningHubApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/JudgeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learninghub/judge/JudgeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/JudgeParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learninghub/judge/JudgeParams.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/JudgeService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/docker/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/files/hello.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/files/test.in" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/files/test.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/scripts/buildImage.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/docker/scripts/buildImage.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/scripts/compileCode.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/scripts/copyToContainer.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/docker/scripts/copyToContainer.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/scripts/runContainer.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/docker/scripts/runContainer.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/learninghub/learninghub/LearningHubApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/learninghub/LearningHubApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +78,16 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HttpClientSelectedEnvironments">
+    <file url="jar://$APPLICATION_HOME_DIR$/plugins/restClient/lib/restClient.jar!/com/intellij/ws/rest/client/requests/collection/post-requests.http" environment="test" />
+    <file url="file:///tmp/whats-new.http.http" environment="test" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -100,24 +106,52 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/lukasz/Test/learning-hub/learning-hub-server&quot;
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/michal/Desktop/learning-hub-server&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;209e89a0895e24dd07c3238d4bbf4831&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/docker" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/learninghub/learninghub/judge/docker/files" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.LearningHubApplication">
+  <component name="RunManager" selected="Application.com.example.learninghub.LearningHubApplication">
     <configuration name="LearningHubApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.learninghub.learninghub.LearningHubApplication" />
       <module name="learning-hub" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.learninghub.learninghub.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.example.learninghub.LearningHubApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.learninghub.LearningHubApplication" />
+      <module name="learning-hub" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.learninghub.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -144,27 +178,7 @@
       <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="learning-hub-server [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="jar" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
       <method v="2" />
     </configuration>
     <configuration name="learning-hub-server [resolveMainClassName]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -186,6 +200,7 @@
       <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
+      <ForceTestExec>false</ForceTestExec>
       <method v="2" />
     </configuration>
     <configuration name="LearningHubApplicationKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
@@ -199,20 +214,33 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="LearningHubApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="learning-hub-server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.learninghub.learninghub.LearningHubApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="Application.com.example.learninghub.LearningHubApplication" />
       <item itemvalue="Application.LearningHubApplication" />
       <item itemvalue="Gradle.learning-hub-server [clean]" />
-      <item itemvalue="Gradle.learning-hub-server [jar]" />
       <item itemvalue="Gradle.learning-hub-server [resolveMainClassName]" />
       <item itemvalue="Kotlin.LearningHubApplicationKt" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.com.example.learninghub.LearningHubApplication" />
         <item itemvalue="Application.LearningHubApplication" />
         <item itemvalue="Kotlin.LearningHubApplicationKt" />
         <item itemvalue="Gradle.learning-hub-server [clean]" />
         <item itemvalue="Gradle.learning-hub-server [resolveMainClassName]" />
-        <item itemvalue="Gradle.learning-hub-server [jar]" />
       </list>
     </recent_temporary>
   </component>
@@ -224,8 +252,32 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1677840139977</updated>
+      <workItem from="1678982784804" duration="981000" />
+      <workItem from="1679304002560" duration="3949000" />
+      <workItem from="1679316978855" duration="12422000" />
+      <workItem from="1679335490482" duration="634000" />
+      <workItem from="1679346269373" duration="1402000" />
+      <workItem from="1679391842021" duration="4996000" />
     </task>
+    <task id="LOCAL-00001" summary="Test commit">
+      <created>1678983044512</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1678983044512</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Basic judge logic implemented - still not working completely">
+      <created>1679347663987</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1679347663987</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -237,5 +289,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Test commit" />
+    <MESSAGE value="Basic judge logic implemented - still not working completely" />
+    <option name="LAST_COMMIT_MESSAGE" value="Basic judge logic implemented - still not working completely" />
   </component>
 </project>

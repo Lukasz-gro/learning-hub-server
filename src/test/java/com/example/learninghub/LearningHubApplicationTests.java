@@ -1,4 +1,4 @@
-package com.learninghub.learninghub;
+package com.example.learninghub;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
