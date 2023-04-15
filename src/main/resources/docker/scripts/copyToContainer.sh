@@ -5,4 +5,4 @@ if [ $# -ne 2 ]; then
 	exit
 fi
 
-docker cp $2 $1:/
+docker cp $2 $1:/judge
