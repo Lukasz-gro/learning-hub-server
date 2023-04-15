@@ -42,7 +42,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.learninghub.learninghub.LearningHubApplication</mainClass>
+					<mainClass>com.example.learninghub.LearningHubApplication</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
