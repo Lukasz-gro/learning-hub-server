@@ -4,16 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d744dc9-1913-4922-8cb2-2f56fdd91d2c" name="Changes" comment="python compilation logic implemented">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/docker/containerFiles/cpp/compile.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/docker/containerFiles/cpp/run.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/docker/containerFiles/python/run.sh" afterDir="false" />
+    <list default="true" id="6d744dc9-1913-4922-8cb2-2f56fdd91d2c" name="Changes" comment="python cpp compilation logic implemented">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/learninghub/Application.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/learninghub/problem/Problem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/learninghub/problem/ProblemRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/setup/database/create.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/learninghub/judge/JudgeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/learninghub/judge/JudgeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/docker/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/docker/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/docker/scripts/copyToContainer.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/docker/scripts/copyToContainer.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/learninghub/learninghub/Controller.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/learninghub/LearningHubApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/learninghub/LearningHubApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/learninghub/ApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +67,7 @@
       <list>
         <option value="Kotlin File" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -88,27 +89,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/lukasz/Test/learning-hub/learning-hub-server&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/michal/Desktop/learning-hub-server",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "spring.configuration.checksum": "91218d9f62d6f5ac1d12fb338ce21f7e",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources/docker/containerFiles/python" />
+      <recent name="$PROJECT_DIR$/src/main/resources/docker" />
+      <recent name="$PROJECT_DIR$/src/main/resources/setup/docker" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/main/resources/docker/containerFiles/python" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
   <component name="RunManager" selected="Application.com.example.learninghub.LearningHubApplication">
-    <configuration name="com.example.learninghub.LearningHubApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.learninghub.LearningHubApplication" />
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.learninghub.Application" />
       <module name="learning-hub" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.learninghub.learninghub.*" />
+          <option name="PATTERN" value="com.example.learninghub.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -193,20 +209,28 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="learning-hub" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.learninghub.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.com.example.learninghub.LearningHubApplication" />
       <item itemvalue="Gradle.learning-hub-server [clean]" />
       <item itemvalue="Gradle.learning-hub-server [jar]" />
       <item itemvalue="Gradle.learning-hub-server [resolveMainClassName]" />
       <item itemvalue="Kotlin.LearningHubApplicationKt" />
+      <item itemvalue="Spring Boot.LearningHubApplication" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.com.example.learninghub.LearningHubApplication" />
         <item itemvalue="Kotlin.LearningHubApplicationKt" />
-        <item itemvalue="Gradle.learning-hub-server [clean]" />
         <item itemvalue="Gradle.learning-hub-server [resolveMainClassName]" />
         <item itemvalue="Gradle.learning-hub-server [jar]" />
+        <item itemvalue="Gradle.learning-hub-server [clean]" />
       </list>
     </recent_temporary>
   </component>
@@ -218,8 +242,21 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1677840139977</updated>
+      <workItem from="1682512241869" duration="7490000" />
+      <workItem from="1682576991942" duration="1240000" />
     </task>
+    <task id="LOCAL-00001" summary="python cpp compilation logic implemented">
+      <created>1681577465244</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1681577465244</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -231,5 +268,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="python cpp compilation logic implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="python cpp compilation logic implemented" />
   </component>
 </project>
