@@ -1,33 +1,31 @@
 # learning-hub-server
 
-
-It is recommended to add all exports to  ~/.bashrc file and reboot.
+### Prerequisites
+- **Maven 3.9+**
+- **JDK 17+**
+- **Docker**
+- **PostgreSQL database**
 
 ### Docker Setup
 
 1. **Export DOCKER_DIR_PATH** \
-e.g. export DOCKER_DIR_PATH=/home/ubuntu/docker/
+e.g. export DOCKER_DIR_PATH=/path/to/project/directory/src/main/resources/docker/
 
 2. **Build docker image** \
-You can use buildImage.sh script in src/main/resources/setup/docker directory.
+You can use [buildImage.sh](src/main/resources/setup/docker/buildImage.sh) script.
 
 ### Database Setup
 
-1. **Export DATABASE_USER** \
-e.g. export DATABASE_USER=postgres
+1. **Database properties** \
+Enter your database server properties for JPA. \
+They are in [application.properties](src/main/resources/application.properties).
 
-2. **Export DATABASE_PASSWORD** \
-e.g. export DATABASE_PASSWORD=password
+2. **Initialize database** \
+You can use [create.sql](src/main/resources/setup/database/create.sql) script.
 
-3. **Export DATABASE_IP** \
-e.g. export DATABASE_IP=localhost
+3. **Insert data into tables** \
+You can use [sample_data.sql](src/main/resources/setup/database/sample_data.sql) script.
 
-4. **Export DATABASE_PORT** \
-e.g. export DATABASE_PORT=5432
 
-5. **Create tables** \
-You can use create.sql script in src/main/resources/setup/database directory. \
-It is recommended you use clear.sql script in the same directory before create.sql
-
-6. **Insert data into tables** \
-You can use insert.sql script in src/main/resources/setup/database directory.
+### Build and run
+To build and run application you can use [build.sh](build.sh) and [run.sh](run.sh) scripts.
