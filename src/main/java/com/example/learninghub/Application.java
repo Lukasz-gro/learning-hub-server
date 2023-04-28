@@ -16,15 +16,4 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-	/* Just for testing
-	@Bean
-	CommandLineRunner commandLineRunner(ProblemRepository problemRepository) {
-		return args -> {
-			System.out.println(problemRepository.save(new Problem("test")));
-			Optional<Problem> x = problemRepository.findById(1);
-			x.ifPresent(problem -> System.out.println(problem.getName()));
-		};
-	}
-	*/
-
 }
