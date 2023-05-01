@@ -1,13 +1,16 @@
 package com.example.learninghub.course;
 
+import com.example.learninghub.course.courseproblem.CourseProblem;
+import com.example.learninghub.problem.Problem;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+
+import java.io.Serializable;
+import java.util.Set;
 
 @Getter
 @ToString
-@NoArgsConstructor
 @Entity(name = "Course")
 @Table(name = "course")
 public class Course {
@@ -20,5 +23,8 @@ public class Course {
     private String name;
     @Column(name = "description")
     private String description;
+    @OneToMany(mappedBy = "course")
+    @JsonIgnore
+    @ToString.Exclude private Set<CourseProblem> problems;
 
 }
