@@ -25,5 +25,7 @@ CREATE TABLE test (
 CREATE TABLE course_problem (
     course_id       int REFERENCES course(id) ON UPDATE CASCADE ON DELETE CASCADE,
     problem_id      int REFERENCES problem(id) ON UPDATE CASCADE,
-    PRIMARY KEY (course_id, problem_id)
+    ordinal_number  int NOT NULL,
+    PRIMARY KEY (course_id, problem_id),
+    UNIQUE (course_id, ordinal_number)
 );

@@ -1,6 +1,8 @@
 package com.example.learninghub.problem;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ProblemRepository extends CrudRepository<Problem, Integer> {
+@Repository
+public interface ProblemRepository extends JpaRepository<Problem, Integer> {
 }
