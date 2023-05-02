@@ -1,6 +1,7 @@
 package com.example.learninghub.problem;
 
 import com.example.learninghub.course.courseproblem.CourseProblem;
+import com.example.learninghub.submit.Submit;
 import com.example.learninghub.test.Test;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -8,8 +9,7 @@ import lombok.*;
 
 import java.util.Set;
 
-@Getter
-@ToString
+@Data
 @Entity(name = "Problem")
 @Table(name = "problem")
 public class Problem {
@@ -28,5 +28,8 @@ public class Problem {
     @OneToMany(mappedBy = "problem")
     @JsonIgnore
     @ToString.Exclude private Set<CourseProblem> courses;
+    @OneToMany(mappedBy = "problem")
+    @JsonIgnore
+    @ToString.Exclude private Set<Submit> submits;
 
 }
