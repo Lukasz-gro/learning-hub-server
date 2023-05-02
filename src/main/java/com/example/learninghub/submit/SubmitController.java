@@ -1,25 +1,23 @@
-package com.example.learninghub.course;
+package com.example.learninghub.submit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
-@RequestMapping(path = "/v1/course")
-public class CourseController {
+@RequestMapping(path = "/v1/submit")
+public class SubmitController {
 
-    private final CourseService courseService;
+    private final SubmitService submitService;
 
     @Autowired
-    public CourseController(CourseService courseService) {
-        this.courseService = courseService;
+    public SubmitController(SubmitService submitService) {
+        this.submitService = submitService;
     }
 
     @GetMapping
     public String get() {
-        return "I'm course!";
+        return "I'm submit!";
     }
 }
