@@ -22,6 +22,10 @@ public class SubmitService {
         submitRepository.findTopByOrderById().ifPresent(submit -> maxSubmitId.set(submit.getId()));
     }
 
+    public Submit getSubmit(Integer id) {
+        return submitRepository.findById(id).orElseThrow();
+    }
+
     public Integer addSubmit(String code, String status, Integer problemId) {
         Integer submitId = maxSubmitId.incrementAndGet();
         Problem problem = problemService.getProblem(problemId);

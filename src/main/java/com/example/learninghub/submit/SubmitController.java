@@ -2,6 +2,7 @@ package com.example.learninghub.submit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,5 +20,10 @@ public class SubmitController {
     @GetMapping
     public String get() {
         return "I'm submit!";
+    }
+
+    @GetMapping({"{submitId}"})
+    public Submit getSubmit(@PathVariable("submitId") Integer id) {
+        return submitService.getSubmit(id);
     }
 }
