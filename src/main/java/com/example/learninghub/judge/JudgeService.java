@@ -2,7 +2,6 @@ package com.example.learninghub.judge;
 
 import org.springframework.stereotype.Service;
 
-import javax.naming.OperationNotSupportedException;
 import java.io.*;
 
 @Service
@@ -12,55 +11,58 @@ public class JudgeService {
     private final String scriptsPath = dockerPath + "scripts/";
     private final String filesPath = "/tmp/";
 
-    public String runCode(JudgeParams judgeParams) {
-        String containerName = "container" + judgeParams.getProblemId();
-        String filename = "file" + judgeParams.getTestCase();
-        String code = judgeParams.getCode();
+    public String runCode(JudgeParams judgeParams, Integer submitID, String input) {
+        System.out.println("runCode2");
+        String containerName = submitID + "_" + judgeParams.getTestCase();
         execCommand(scriptsPath + "runContainer.sh " + containerName);
-        if (judgeParams.getLanguage().equals("python")) {
-            handlePython(containerName, filename, code);
-        } else if (judgeParams.getLanguage().equals("cpp")) {
-            handleCpp(containerName, filename, code);
-        } else if (judgeParams.getLanguage().equals("java")) {
-            handleJava(containerName, filename, code);
-        } else {
-            throw new RuntimeException("Wrong language");
-        }
-        String output = execCommand("docker exec " + containerName + " cat output");
-        new Thread(() -> {
-            execCommand("docker stop " + containerName);
-        }).start();
+        String output = switch (judgeParams.getLanguage()) {
+            case "python" -> handlePython(containerName, judgeParams.getCode(), input);
+            case "cpp" -> handleCpp(containerName, judgeParams.getCode(), input);
+            case "java" -> handleJava(containerName, judgeParams.getCode(), input);
+            default -> throw new RuntimeException("Wrong language");
+        };
+        //        String output = execCommand("docker exec " + containerName + " cat output");
+//        new Thread(() -> {
+//            execCommand("docker stop " + containerName);
+//        }).start();
         return output;
     }
 
-    private void handlePython(String containerName, String filename, String code) {
-        filename += ".py";
-        String filePath = filesPath + filename;
-        makeFile(filePath, code);
-        execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filePath);
-        execCommand("docker exec " + containerName + " ./scripts/python/run.sh " + filename + " output");
+    private String handlePython(String containerName, String code, String input) {
+        makeFile(filesPath + "code.py", code);
+        makeFile(filesPath + "input.in", input);
+        execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + "code.py");
+        execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + "input.in");
+        System.out.println(code);
+        String output = execCommand("docker exec " + containerName + " ./scripts/python/run.sh code.py input.in");
+        System.out.println("executed: " + output);
         try {
-            deleteFile(filePath);
+            deleteFile(filesPath + "code.py");
+            deleteFile(filesPath + "input.in");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        return output;
     }
 
-    private void handleCpp(String containerName, String filename, String code) {
-        filename += ".cpp";
-        String filePath = filesPath + filename;
-        makeFile(filePath, code);
-        execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filePath);
-        execCommand("docker exec " + containerName + " ./scripts/cpp/compile.sh " + filename + " main");
-        execCommand("docker exec " + containerName + " ./scripts/cpp/run.sh " + "main " + "output");
+    private String handleCpp(String containerName, String code, String input) {
+        makeFile(filesPath + "code.cpp", code); // UNIKALNA NAZWA
+        makeFile(filesPath + "input.in", input);
+        execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + "code.cpp");
+        execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + "input.in");
+        execCommand("docker exec " + containerName + " ./scripts/cpp/compile.sh " + "code.cpp main");
+        String output = execCommand("docker exec " + containerName + " ./scripts/cpp/run.sh main input.in");
         try {
-            deleteFile(filePath);
+            deleteFile(filesPath + "code.cpp");
+            deleteFile(filesPath + "input.in");
+            deleteFile(filesPath + "main");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        return output;
     }
 
-    private void handleJava(String containerName, String filename, String code) {
+    private String handleJava(String containerName, String code, String input) {
         //TODO:
         throw new RuntimeException("Java handling isn't implemented yet");
     }

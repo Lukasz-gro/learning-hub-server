@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "v1/judge")
 public class JudgeController {
 
-    private final JudgeService judgeService;
+    private final JudgeQueue judgeQueue;
 
     @Autowired
-    public JudgeController(JudgeService judgeService) {
-        this.judgeService = judgeService;
+    public JudgeController(JudgeQueue judgeQueue) {
+        this.judgeQueue = judgeQueue;
     }
 
     @GetMapping
@@ -21,8 +21,11 @@ public class JudgeController {
 
     @PostMapping("run-code")
     @ResponseBody
-    public String runCode(@RequestBody JudgeParams judgeParams) {
-        return judgeService.runCode(judgeParams);
+    public String runCode(@RequestBody JudgeParams judgeParams) throws InterruptedException {
+        System.out.println("runCode1");
+        Integer newSubmitId = 0; // TODO: Get new unique submit ID
+        return judgeQueue.enqueue(judgeParams, newSubmitId);
+//        return Integer.toString(newSubmitId);
     }
 
 }
