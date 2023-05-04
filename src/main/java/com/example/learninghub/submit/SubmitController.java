@@ -26,4 +26,5 @@ public class SubmitController {
     public Submit getSubmit(@PathVariable("submitId") Integer id) {
         return submitService.getSubmit(id);
     }
+
 }
