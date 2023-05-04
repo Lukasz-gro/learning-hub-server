@@ -1,6 +1,5 @@
 package com.example.learninghub.judge;
 
-import com.example.learninghub.submit.Submit;
 import com.example.learninghub.submit.SubmitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,11 +24,9 @@ public class JudgeController {
 
     @PostMapping("run-code")
     @ResponseBody
-    public Submit runCode(@RequestBody JudgeParams judgeParams) throws InterruptedException {
+    public String runCode(@RequestBody JudgeParams judgeParams) {
         Integer newSubmitId = submitService.addSubmit(judgeParams.getCode(), "QUE", judgeParams.getProblemId());
-//        Integer newSubmitId = 1;
-        judgeQueue.enqueue(judgeParams, newSubmitId, "Filip");
-        System.out.println(newSubmitId);
-        return submitService.getSubmit(newSubmitId);
+        judgeQueue.enqueue(judgeParams, newSubmitId);
+        return Integer.toString(newSubmitId);
     }
 }

@@ -1,33 +1,36 @@
 package com.example.learninghub.judge;
 
 import com.example.learninghub.submit.SubmitService;
-import lombok.AllArgsConstructor;
+import com.example.learninghub.test.TestService;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.SynchronousQueue;
+import java.util.Arrays;
 
 @Data
 @Service
 public class JudgeQueue {
-
-//    private SynchronousQueue<Submit> submitSynchronousQueue = new SynchronousQueue<>();
     private final JudgeService judgeService;
     private final SubmitService submitService;
+    private final TestService testService;
 
     @Autowired
-    JudgeQueue(JudgeService judgeService, SubmitService submitService) {
+    JudgeQueue(JudgeService judgeService, SubmitService submitService, TestService testService) {
         this.judgeService = judgeService;
         this.submitService = submitService;
+        this.testService = testService;
     }
 
 
-    public void enqueue(JudgeParams judgeParams, Integer submitID, String input) throws InterruptedException {
-        String output = judgeService.runCode(judgeParams, submitID, input);
-        String correctOutput = "Hello, Filip!\n";
-        boolean result = output.equals(correctOutput);
-        submitService.updateSubmit(submitID, result ? "OK" : "ANS");
+    public void enqueue(JudgeParams judgeParams, Integer submitID) {
+        String input = testService.getTests(judgeParams.getProblemId()).get(judgeParams.getTestCase() - 1).getInput();
+        String output = testService.getTests(judgeParams.getProblemId()).get(judgeParams.getTestCase() - 1).getOutput();
+
+        String userOutput = judgeService.runCode(judgeParams, submitID, input);
+
+        String [] outputArr = output.split("\\s+");
+        String [] userOutputArr = userOutput.split("\\s+");
+        submitService.updateSubmit(submitID, Arrays.equals(outputArr, userOutputArr) ? "OK" : "ANS");
     }
 }
