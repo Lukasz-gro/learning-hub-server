@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/problem")
+@RequestMapping(path = "/v1/problem")
 public class ProblemController {
 
     private final ProblemService problemService;
@@ -21,6 +21,6 @@ public class ProblemController {
 
     @GetMapping
     public String get() {
-        return "I'm problem";
+        return "I'm problem!";
     }
 }
