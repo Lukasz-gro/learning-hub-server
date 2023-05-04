@@ -17,11 +17,6 @@ public class SubmitController {
         this.submitService = submitService;
     }
 
-    @GetMapping
-    public String get() {
-        return "I'm submit!";
-    }
-
     @GetMapping({"{submitId}"})
     public Submit getSubmit(@PathVariable("submitId") Integer id) {
         return submitService.getSubmit(id);

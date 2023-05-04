@@ -20,11 +20,6 @@ public class ProblemController {
         this.problemService = problemService;
     }
 
-    @GetMapping
-    public String get() {
-        return "I'm problem!";
-    }
-
     @GetMapping("{problemId}")
     public Problem getProblem(@PathVariable("problemId") Integer id) {
         return problemService.getProblem(id);

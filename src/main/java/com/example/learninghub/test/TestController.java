@@ -19,9 +19,4 @@ public class TestController {
         this.testService = testService;
     }
 
-    @GetMapping
-    public String get() {
-        return "I'm test!";
-    }
-
 }

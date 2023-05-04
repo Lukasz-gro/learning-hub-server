@@ -20,11 +20,6 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @GetMapping
-    public String get() {
-        return "I'm course!";
-    }
-
     @GetMapping("{courseId}")
     public Course getCourse(@PathVariable("courseId") Integer id) {
         return courseService.getCourse(id);
