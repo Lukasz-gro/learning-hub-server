@@ -6,11 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serializable;
 import java.util.Set;
 
-@Getter
-@ToString
+@Data
 @Entity(name = "Course")
 @Table(name = "course")
 public class Course {

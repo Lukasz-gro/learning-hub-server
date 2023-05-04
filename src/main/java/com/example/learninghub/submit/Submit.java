@@ -1,24 +1,24 @@
-package com.example.learninghub.test;
+package com.example.learninghub.submit;
 
 import com.example.learninghub.problem.Problem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 @Data
-@Entity(name = "Test")
-@Table(name = "test")
-public class Test {
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity(name = "Submit")
+@Table(name = "submit")
+public class Submit {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "input")
-    private String input;
-    @Column(name = "output")
-    private String output;
+    @Column(name = "code")
+    private String code;
+    @Column(name = "status")
+    private String status;
     @ManyToOne
     @JoinColumn(name = "problem_id")
     @JsonIgnore
