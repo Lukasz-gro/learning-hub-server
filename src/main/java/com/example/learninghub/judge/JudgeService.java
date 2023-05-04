@@ -21,24 +21,23 @@ public class JudgeService {
             case "java" -> handleJava(containerName, judgeParams.getCode(), input);
             default -> throw new RuntimeException("Wrong language");
         };
-        //        String output = execCommand("docker exec " + containerName + " cat output");
-//        new Thread(() -> {
-//            execCommand("docker stop " + containerName);
-//        }).start();
+        new Thread(() -> {
+            execCommand("docker stop " + containerName);
+        }).start();
         return output;
     }
 
     private String handlePython(String containerName, String code, String input) {
-        makeFile(filesPath + "code.py", code);
-        makeFile(filesPath + "input.in", input);
-        execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + "code.py");
-        execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + "input.in");
-        System.out.println(code);
-        String output = execCommand("docker exec " + containerName + " ./scripts/python/run.sh code.py input.in");
-        System.out.println("executed: " + output);
+        String codeFileName = containerName + ".py";
+        String inputFileName = containerName + ".in";
+        makeFile(filesPath + codeFileName, code);
+        makeFile(filesPath + inputFileName, input);
+        execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + codeFileName);
+        execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + inputFileName);
+        String output = execCommand("docker exec " + containerName + " ./scripts/python/run.sh " + codeFileName + " " + inputFileName);
         try {
-            deleteFile(filesPath + "code.py");
-            deleteFile(filesPath + "input.in");
+            deleteFile(filesPath + codeFileName);
+            deleteFile(filesPath + inputFileName);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -46,16 +45,17 @@ public class JudgeService {
     }
 
     private String handleCpp(String containerName, String code, String input) {
-        makeFile(filesPath + "code.cpp", code); // UNIKALNA NAZWA
-        makeFile(filesPath + "input.in", input);
-        execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + "code.cpp");
-        execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + "input.in");
-        execCommand("docker exec " + containerName + " ./scripts/cpp/compile.sh " + "code.cpp main");
-        String output = execCommand("docker exec " + containerName + " ./scripts/cpp/run.sh main input.in");
+        String codeFileName = containerName + ".cpp";
+        String inputFileName = containerName + ".in";
+        makeFile(filesPath + codeFileName, code);
+        makeFile(filesPath + inputFileName, input);
+        execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + codeFileName);
+        execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + inputFileName);
+        execCommand("docker exec " + containerName + " ./scripts/cpp/compile.sh " + codeFileName + " main");
+        String output = execCommand("docker exec " + containerName + " ./scripts/cpp/run.sh main " + inputFileName);
         try {
-            deleteFile(filesPath + "code.cpp");
-            deleteFile(filesPath + "input.in");
-            deleteFile(filesPath + "main");
+            deleteFile(filesPath + codeFileName);
+            deleteFile(filesPath + inputFileName);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
