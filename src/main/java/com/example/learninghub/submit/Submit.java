@@ -17,9 +17,8 @@ public class Submit {
     private Integer id;
     @Column(name = "code")
     private String code;
-    @Enumerated(value = EnumType.STRING)
     @Column(name = "status")
-    private Status status;
+    private String status;
     @ManyToOne
     @JoinColumn(name = "problem_id")
     @JsonIgnore
