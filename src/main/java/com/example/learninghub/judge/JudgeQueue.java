@@ -24,13 +24,15 @@ public class JudgeQueue {
 
 
     public void enqueue(JudgeParams judgeParams, Integer submitID) {
-        String input = testService.getTests(judgeParams.getProblemId()).get(judgeParams.getTestCase() - 1).getInput();
-        String output = testService.getTests(judgeParams.getProblemId()).get(judgeParams.getTestCase() - 1).getOutput();
+        new Thread(() -> {
+            String input = testService.getTests(judgeParams.getProblemId()).get(judgeParams.getTestCase() - 1).getInput();
+            String output = testService.getTests(judgeParams.getProblemId()).get(judgeParams.getTestCase() - 1).getOutput();
 
-        String userOutput = judgeService.runCode(judgeParams, submitID, input);
+            String userOutput = judgeService.runCode(judgeParams, submitID, input);
 
-        String [] outputArr = output.split("\\s+");
-        String [] userOutputArr = userOutput.split("\\s+");
-        submitService.updateSubmit(submitID, Arrays.equals(outputArr, userOutputArr) ? "OK" : "ANS");
+            String [] outputArr = output.split("\\s+");
+            String [] userOutputArr = userOutput.split("\\s+");
+            submitService.updateSubmit(submitID, Arrays.equals(outputArr, userOutputArr) ? "OK" : "ANS");
+        }).start();
     }
 }

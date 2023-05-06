@@ -24,6 +24,7 @@ public class JudgeService {
         new Thread(() -> {
             execCommand("docker stop " + containerName);
         }).start();
+        System.out.println("output from container: " + output);
         return output;
     }
 
@@ -85,7 +86,7 @@ public class JudgeService {
             } else {
                 System.out.println("Failure! " + command);
                 //TODO: handle error
-                System.exit(exitVal);
+                return output.toString();
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
