@@ -5,4 +5,10 @@ if [ $# -ne 2 ]; then
 	exit
 fi
 
-python3 $1 < $2
+python3 "$1" < "$2" > out 2>error
+
+if [ -s "error" ]; then
+  cat error
+else
+  cat out
+fi
