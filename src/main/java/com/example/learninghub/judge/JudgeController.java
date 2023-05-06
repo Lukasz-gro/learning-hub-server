@@ -22,9 +22,9 @@ public class JudgeController {
         return "I'm judge!!!";
     }
 
-    @PostMapping("run-code")
+    @PostMapping("queue-code")
     @ResponseBody
-    public String runCode(@RequestBody JudgeParams judgeParams) {
+    public String queueCode(@RequestBody JudgeParams judgeParams) {
         Integer newSubmitId = submitService.addSubmit(judgeParams.getCode(), "QUE", judgeParams.getProblemId());
         judgeQueue.enqueue(judgeParams, newSubmitId);
         return Integer.toString(newSubmitId);
