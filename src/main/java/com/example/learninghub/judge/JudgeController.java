@@ -20,11 +20,6 @@ public class JudgeController {
         this.submitService = submitService;
     }
 
-    @GetMapping
-    public String get() {
-        return "I'm judge!!!";
-    }
-
     @PostMapping("queue-code")
     public ResponseEntity<Submit> queueCode(@RequestBody JudgeParams judgeParams) {
         Integer newSubmitId = submitService.addSubmit(judgeParams.getCode(), Status.QUE, judgeParams.getProblemId());
