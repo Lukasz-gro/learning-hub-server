@@ -19,7 +19,7 @@ public class SubmitService {
         this.submitRepository = submitRepository;
         this.problemService = problemService;
         maxSubmitId.set(0);
-        submitRepository.findTopByOrderById().ifPresent(submit -> maxSubmitId.set(submit.getId()));
+        submitRepository.findTopByOrderByIdDesc().ifPresent(submit -> maxSubmitId.set(submit.getId()));
     }
 
     public Submit getSubmit(Integer id) {
