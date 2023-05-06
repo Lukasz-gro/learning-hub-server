@@ -1,7 +1,10 @@
 package com.example.learninghub.judge;
 
+import com.example.learninghub.submit.Status;
+import com.example.learninghub.submit.Submit;
 import com.example.learninghub.submit.SubmitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,10 +26,9 @@ public class JudgeController {
     }
 
     @PostMapping("queue-code")
-    @ResponseBody
-    public String queueCode(@RequestBody JudgeParams judgeParams) {
-        Integer newSubmitId = submitService.addSubmit(judgeParams.getCode(), "QUE", judgeParams.getProblemId());
+    public ResponseEntity<Submit> queueCode(@RequestBody JudgeParams judgeParams) {
+        Integer newSubmitId = submitService.addSubmit(judgeParams.getCode(), Status.QUE, judgeParams.getProblemId());
         judgeQueue.enqueue(judgeParams, newSubmitId);
-        return Integer.toString(newSubmitId);
+        return ResponseEntity.ok(submitService.getSubmit(newSubmitId));
     }
 }

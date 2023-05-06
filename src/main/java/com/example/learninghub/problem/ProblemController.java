@@ -24,9 +24,4 @@ public class ProblemController {
     public Problem getProblem(@PathVariable("problemId") Integer id) {
         return problemService.getProblem(id);
     }
-
-    @GetMapping("{problemId}")
-    public Problem getProblem(@PathVariable("problemId") Integer id) {
-        return problemService.getProblem(id);
-    }
 }

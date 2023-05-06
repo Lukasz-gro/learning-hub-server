@@ -1,5 +1,6 @@
 package com.example.learninghub.judge;
 
+import com.example.learninghub.submit.Status;
 import com.example.learninghub.submit.SubmitService;
 import com.example.learninghub.test.TestService;
 import lombok.Data;
@@ -30,9 +31,9 @@ public class JudgeQueue {
 
             String userOutput = judgeService.runCode(judgeParams, submitID, input);
 
-            String [] outputArr = output.split("\\s+");
-            String [] userOutputArr = userOutput.split("\\s+");
-            submitService.updateSubmit(submitID, Arrays.equals(outputArr, userOutputArr) ? "OK" : "ANS");
+            String[] outputArr = output.split("\\s+");
+            String[] userOutputArr = userOutput.split("\\s+");
+            submitService.updateSubmit(submitID, Arrays.equals(outputArr, userOutputArr) ? Status.OK : Status.ANS);
         }).start();
     }
 }
