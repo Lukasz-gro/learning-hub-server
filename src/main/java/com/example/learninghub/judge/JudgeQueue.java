@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.concurrent.LinkedBlockingQueue;
 
 @Data
@@ -59,7 +60,11 @@ public class JudgeQueue {
 
                 String[] outputArr = output.split("\\s+");
                 String[] userOutputArr = userOutput.split("\\s+");
-                submitService.updateSubmit(submitID, Arrays.equals(outputArr, userOutputArr) ? Status.OK : Status.ANS);
+                if (Objects.equals(userOutputArr[0], "RTE?*#.")) {
+                    submitService.updateSubmit(submitID, Status.RTE);
+                } else {
+                    submitService.updateSubmit(submitID, Arrays.equals(outputArr, userOutputArr) ? Status.OK : Status.ANS);
+                }
             }
         }).start();
     }
