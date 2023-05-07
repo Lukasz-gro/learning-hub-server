@@ -61,6 +61,7 @@ public class JudgeQueue {
                 String[] outputArr = output.split("\\s+");
                 String[] userOutputArr = userOutput.split("\\s+");
                 if (Objects.equals(userOutputArr[0], "RTE?*#.")) {
+                    System.out.println("RTE");
                     submitService.updateSubmit(submitID, Status.RTE);
                 } else {
                     submitService.updateSubmit(submitID, Arrays.equals(outputArr, userOutputArr) ? Status.OK : Status.ANS);

@@ -9,6 +9,7 @@ python3 "$1" < "$2" > out 2>error
 
 if [ -s "error" ]; then
   cat error
+  exit 1
 else
   cat out
 fi

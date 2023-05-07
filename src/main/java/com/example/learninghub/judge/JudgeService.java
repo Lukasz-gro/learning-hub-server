@@ -85,7 +85,7 @@ public class JudgeService {
                 return output.toString();
             } else {
                 System.out.println("Failure! " + command);
-                return "RTE?*#." + output.toString();
+                return output.append("RTE?*#.").toString();
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
