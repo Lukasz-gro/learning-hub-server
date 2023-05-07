@@ -24,18 +24,23 @@ public class SubmitService {
         submitRepository.findTopByOrderByIdDesc().ifPresent(submit -> maxSubmitId.set(submit.getId()));
     }
 
-    public Submit getSubmit(Integer id) {
+    public Submit getSubmit(Integer id) throws NoSuchElementException {
         return submitRepository.findById(id).orElseThrow();
     }
 
-    public Integer addSubmit(String code, Status status, Integer problemId) {
+    public Integer addSubmit(String code, Status status, Integer problemId) throws NoSuchElementException {
         Integer submitId = maxSubmitId.incrementAndGet();
-        Problem problem = problemService.getProblem(problemId);
+        Problem problem;
+        try {
+            problem = problemService.getProblem(problemId);
+        } catch (NoSuchElementException e) {
+            throw new NoSuchElementException("No problem with id: " + problemId);
+        }
         submitRepository.save(new Submit(submitId, code, status, problem));
         return submitId;
     }
 
-    public void updateSubmit(Integer submitId, Status newStatus) {
+    public void updateSubmit(Integer submitId, Status newStatus) throws NoSuchElementException {
         if (!submitRepository.existsById(submitId)) {
             throw new NoSuchElementException("No submit with id: " + submitId);
         }

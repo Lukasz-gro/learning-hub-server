@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class TestService {
@@ -19,8 +20,13 @@ public class TestService {
         this.testRepository = testRepository;
     }
 
-    public List<Test> getTests(Integer problemId) {
-        Problem problem = problemService.getProblem(problemId);
+    public List<Test> getTests(Integer problemId) throws NoSuchElementException {
+        Problem problem;
+        try {
+            problem = problemService.getProblem(problemId);
+        } catch (NoSuchElementException e) {
+            throw new NoSuchElementException("No problem with id: " + problemId);
+        }
         return testRepository.findTestsByProblem(problem);
     }
 

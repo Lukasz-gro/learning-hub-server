@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
@@ -20,7 +21,7 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
-    public Course getCourse(Integer id) {
+    public Course getCourse(Integer id) throws NoSuchElementException {
         return courseRepository.findById(id).orElseThrow();
     }
 
@@ -28,7 +29,7 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
-    public List<Problem> getCourseProblems(Integer id) {
+    public List<Problem> getCourseProblems(Integer id) throws NoSuchElementException {
         Course course = courseRepository.findById(id).orElseThrow();
         return course.getProblems().stream().sorted((x, y) -> {
             if (x.getOrdinalNumber() < y.getOrdinalNumber()) {
