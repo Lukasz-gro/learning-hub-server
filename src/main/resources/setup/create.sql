@@ -1,40 +1,83 @@
 DROP TABLE IF EXISTS submit;
+DROP TABLE IF EXISTS user_course;
+DROP TABLE IF EXISTS _user;
 DROP TABLE IF EXISTS test;
+DROP TABLE IF EXISTS problem_tag;
+DROP TABLE IF EXISTS tag;
+DROP TABLE IF EXISTS hint;
 DROP TABLE IF EXISTS course_problem;
 DROP TABLE IF EXISTS problem;
 DROP TABLE IF EXISTS course;
 
 CREATE TABLE course (
-    id              serial PRIMARY KEY,
-    name            text NOT NULL UNIQUE,
-    description     text NOT NULL UNIQUE
+    id                  serial PRIMARY KEY,
+    name                text NOT NULL UNIQUE,
+    short_description   text NOT NULL,
+    description         text NOT NULL
 );
 
 CREATE TABLE problem (
-    id              serial PRIMARY KEY,
-    name            text NOT NULL UNIQUE,
-    description     text NOT NULL UNIQUE
+    id                  serial PRIMARY KEY,
+    name                text NOT NULL UNIQUE,
+    description         text NOT NULL UNIQUE,
+    prompt              text NOT NULL,
+    status              text NOT NULL DEFAULT 'TODO'
 );
 
 CREATE TABLE course_problem (
-    course_id       int REFERENCES course(id) ON UPDATE CASCADE ON DELETE CASCADE,
-    problem_id      int REFERENCES problem(id) ON UPDATE CASCADE,
-    ordinal_number  int NOT NULL,
+    course_id           int REFERENCES course(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    problem_id          int REFERENCES problem(id) ON UPDATE CASCADE,
+    ordinal_number      int NOT NULL,
     PRIMARY KEY (course_id, problem_id),
     UNIQUE (course_id, ordinal_number)
 );
 
+CREATE TABLE hint (
+    id                 serial PRIMARY KEY,
+    problem_id         int REFERENCES problem(id),
+    ordinal_number     int NOT NULL,
+    description        text NOT NULL,
+    UNIQUE(problem_id, ordinal_number)
+);
+
+CREATE TABLE tag (
+    id                  serial PRIMARY KEY,
+    name                text NOT NULL UNIQUE
+);
+
+CREATE TABLE problem_tag (
+    problem_id         int REFERENCES problem(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    tag_id             int REFERENCES tag(id) ON UPDATE CASCADE,
+    PRIMARY KEY (problem_id, tag_id)
+);
+
 CREATE TABLE test (
-    id              serial PRIMARY KEY,
-    problem_id      int REFERENCES problem(id),
-    input           text NOT NULL,
-    output          text NOT NULL
+    id                  serial PRIMARY KEY,
+    problem_id          int REFERENCES problem(id),
+    input               text NOT NULL,
+    output              text NOT NULL
+);
+
+CREATE TABLE _user (
+    id                  serial PRIMARY KEY,
+    username            text NOT NULL UNIQUE,
+    password            text NOT NULL,
+    email               text NOT NULL UNIQUE
+);
+
+CREATE TABLE user_course (
+    user_id             int REFERENCES _user(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    course_id           int REFERENCES course(id) ON UPDATE CASCADE,
+    PRIMARY KEY (user_id, course_id)
 );
 
 CREATE TABLE submit (
-    id              int PRIMARY KEY,
-    problem_id      int REFERENCES problem(id),
-    code            text NOT NULL,
-    status          text NOT NULL DEFAULT 'QUE'
+    id                  int PRIMARY KEY,
+    problem_id          int REFERENCES problem(id),
+    code                text NOT NULL,
+    status              text NOT NULL,
+    date                date NOT NULL,
+    user_id             int REFERENCES _user(id)
 );
+
 
