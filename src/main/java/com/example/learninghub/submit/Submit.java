@@ -1,9 +1,13 @@
 package com.example.learninghub.submit;
 
 import com.example.learninghub.problem.Problem;
+import com.example.learninghub.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.sql.Date;
+
 
 @Data
 @NoArgsConstructor
@@ -20,9 +24,15 @@ public class Submit {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status")
     private Status status;
+    @Column(name = "date")
+    private Date date;
     @ManyToOne
     @JoinColumn(name = "problem_id")
     @JsonIgnore
     @ToString.Exclude private Problem problem;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    @ToString.Exclude private User user;
 
 }

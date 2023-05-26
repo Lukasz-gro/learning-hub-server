@@ -1,14 +1,43 @@
-INSERT INTO course (name, description) VALUES ('Sample Course 1', 'Some sample course 1 description');
-INSERT INTO course (name, description) VALUES ('Sample Course 2', 'Some sample course 2 description');
-INSERT INTO problem (name, description) VALUES ('Problem A', 'Problem A description');
-INSERT INTO problem (name, description) VALUES ('Problem B', 'Problem B description');
-INSERT INTO problem (name, description) VALUES ('Problem C', 'Problem C description');
-INSERT INTO problem (name, description) VALUES ('Problem D', 'Problem D description');
-INSERT INTO problem (name, description) VALUES ('Problem E', 'Problem E description');
-INSERT INTO test (problem_id, input, output) VALUES (1, '1 34 47 47 41 4 32 2 13 24 34 34 14 28 34 35 43 38 6 19 11 5 49 30 34 7 24 39 10 48 29 33 8 2 12 2 43 11 2 30 15 11 35 45 22 47 6 16 31 22', '1 2 2 2 2 4 5 6 6 7 8 10 11 11 11 12 13 14 15 16 19 22 22 24 24 28 29 30 30 31 32 33 34 34 34 34 34 35 35 38 39 41 43 43 45 47 47 47 48 49');
-INSERT INTO test (problem_id, input, output) VALUES (2, '1 34 47 47 41 4 32 2 13 24 34 34 14 28 34 35 43 38 6 19 11 5 49 30 34 7 24 39 10 48 29 33 8 2 12 2 43 11 2 30 15 11 35 45 22 47 6 16 31 22', '1 2 2 2 2 4 5 6 6 7 8 10 11 11 11 12 13 14 15 16 19 22 22 24 24 28 29 30 30 31 32 33 34 34 34 34 34 35 35 38 39 41 43 43 45 47 47 47 48 49');
-INSERT INTO test (problem_id, input, output) VALUES (3, '1 34 47 47 41 4 32 2 13 24 34 34 14 28 34 35 43 38 6 19 11 5 49 30 34 7 24 39 10 48 29 33 8 2 12 2 43 11 2 30 15 11 35 45 22 47 6 16 31 22', '1 2 2 2 2 4 5 6 6 7 8 10 11 11 11 12 13 14 15 16 19 22 22 24 24 28 29 30 30 31 32 33 34 34 34 34 34 35 35 38 39 41 43 43 45 47 47 47 48 49');
-INSERT INTO test (problem_id, input, output) VALUES (4, '1 34 47 47 41 4 32 2 13 24 34 34 14 28 34 35 43 38 6 19 11 5 49 30 34 7 24 39 10 48 29 33 8 2 12 2 43 11 2 30 15 11 35 45 22 47 6 16 31 22', '1 2 2 2 2 4 5 6 6 7 8 10 11 11 11 12 13 14 15 16 19 22 22 24 24 28 29 30 30 31 32 33 34 34 34 34 34 35 35 38 39 41 43 43 45 47 47 47 48 49');
-INSERT INTO test (problem_id, input, output) VALUES (5, '1 34 47 47 41 4 32 2 13 24 34 34 14 28 34 35 43 38 6 19 11 5 49 30 34 7 24 39 10 48 29 33 8 2 12 2 43 11 2 30 15 11 35 45 22 47 6 16 31 22', '1 2 2 2 2 4 5 6 6 7 8 10 11 11 11 12 13 14 15 16 19 22 22 24 24 28 29 30 30 31 32 33 34 34 34 34 34 35 35 38 39 41 43 43 45 47 47 47 48 49');
-INSERT INTO course_problem (course_id, problem_id, ordinal_number) VALUES (1, 1, 1), (1, 5, 2), (1, 3, 3);
-INSERT INTO course_problem (course_id, problem_id, ordinal_number) VALUES (2, 1, 1), (2, 2, 2), (2, 4, 3);
+INSERT INTO
+    course (name, short_description, description)
+VALUES
+    ('Sample Course 1', 'Short description 1', 'Some sample course 1 description'),
+    ('Sample Course 2', 'Short description 2', 'Some sample course 2 description');
+
+INSERT INTO
+    problem (name, description, prompt)
+VALUES
+    ('Problem A', 'Problem A description', 'Sample prompt 1'),
+    ('Problem B', 'Problem B description', 'Sample prompt 2'),
+    ('Problem C', 'Problem C description', 'Sample prompt 3'),
+    ('Problem D', 'Problem D description', 'Sample prompt 4'),
+    ('Problem E', 'Problem E description', 'Sample prompt 5');
+
+INSERT INTO
+    course_problem (course_id, problem_id, ordinal_number)
+VALUES
+    (1, 1, 1), (1, 5, 2), (1, 3, 3),
+    (2, 1, 1), (2, 2, 2), (2, 4, 3);
+
+INSERT INTO
+    tag (name)
+VALUES
+    ('Tag 1'), ('Tag 2'), ('Tag 3'), ('Tag 4'), ('Tag 5');
+
+INSERT INTO
+    problem_tag (problem_id, tag_id)
+VALUES
+    (1, 1), (1, 3), (1, 5),
+    (2, 2), (1, 4),
+    (3, 4),
+    (4, 1), (4, 2), (4, 4), (4, 5),
+    (5, 2), (5, 3), (5, 5);
+
+INSERT INTO
+    test (problem_id, input, output)
+VALUES
+    (1, 'Sample input 1', 'Sample output 1'),
+    (2, 'Sample input 2', 'Sample output 2'),
+    (3, 'Sample input 3', 'Sample output 3'),
+    (4, 'Sample input 4', 'Sample output 4'),
+    (5, 'Sample input 5', 'Sample output 5');
