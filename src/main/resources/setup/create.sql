@@ -61,7 +61,8 @@ CREATE TABLE _user (
     id                  serial PRIMARY KEY,
     username            text NOT NULL UNIQUE,
     password            text NOT NULL,
-    email               text NOT NULL UNIQUE
+    email               text NOT NULL UNIQUE,
+    role                text NOT NULL
 );
 
 CREATE TABLE user_course (
