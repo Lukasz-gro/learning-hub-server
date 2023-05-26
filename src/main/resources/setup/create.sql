@@ -20,8 +20,7 @@ CREATE TABLE problem (
     id                  serial PRIMARY KEY,
     name                text NOT NULL UNIQUE,
     description         text NOT NULL UNIQUE,
-    prompt              text NOT NULL,
-    status              text NOT NULL DEFAULT 'TODO'
+    prompt              text NOT NULL
 );
 
 CREATE TABLE course_problem (
@@ -79,5 +78,3 @@ CREATE TABLE submit (
     date                date NOT NULL,
     user_id             int REFERENCES _user(id)
 );
-
-

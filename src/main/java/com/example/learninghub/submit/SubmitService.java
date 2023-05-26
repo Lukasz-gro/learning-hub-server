@@ -2,10 +2,13 @@ package com.example.learninghub.submit;
 
 import com.example.learninghub.problem.Problem;
 import com.example.learninghub.problem.ProblemService;
-import jakarta.transaction.Transactional;
+import com.example.learninghub.user.User;
+import com.example.learninghub.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -14,12 +17,14 @@ public class SubmitService {
 
     private final SubmitRepository submitRepository;
     private final ProblemService problemService;
+    private final UserService userService;
     private final AtomicInteger maxSubmitId = new AtomicInteger();
 
     @Autowired
-    public SubmitService(SubmitRepository submitRepository, ProblemService problemService) {
+    public SubmitService(SubmitRepository submitRepository, ProblemService problemService, UserService userService) {
         this.submitRepository = submitRepository;
         this.problemService = problemService;
+        this.userService = userService;
         maxSubmitId.set(0);
         submitRepository.findTopByOrderByIdDesc().ifPresent(submit -> maxSubmitId.set(submit.getId()));
     }
@@ -28,10 +33,11 @@ public class SubmitService {
         return submitRepository.findById(id).orElseThrow();
     }
 
-    public Integer addSubmit(String code, Status status, Integer problemId) {
+    public Integer addSubmit(String code, Status status, Integer problemId, Integer userId) {
         Integer submitId = maxSubmitId.incrementAndGet();
         Problem problem = problemService.getProblem(problemId);
-        submitRepository.save(new Submit(submitId, code, status, problem));
+        User user = userService.getUser(userId);
+        submitRepository.save(new Submit(submitId, code, status, new Date(new java.util.Date().getTime()), problem, user));
         return submitId;
     }
 
