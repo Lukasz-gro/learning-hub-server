@@ -32,7 +32,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "course_id"))
     @JsonIgnore
     @ToString.Exclude private Set<Course> courses;
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     @JsonIgnore
     @ToString.Exclude private Set<Submit> submits;
 

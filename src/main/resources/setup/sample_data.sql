@@ -41,3 +41,8 @@ VALUES
     (3, 'Sample input 3', 'Sample output 3'),
     (4, 'Sample input 4', 'Sample output 4'),
     (5, 'Sample input 5', 'Sample output 5');
+
+INSERT INTO
+    _user(username, password, email)
+VALUES
+    ('user 1', 'password 1', 'user1@email.com');
