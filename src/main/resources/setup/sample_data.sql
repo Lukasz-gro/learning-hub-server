@@ -45,4 +45,4 @@ VALUES
 INSERT INTO
     _user(username, password, email, role)
 VALUES
-    ('user 1', 'password 1', 'user1@email.com', 'standard');
+    ('user 1', 'password 1', 'user1@email.com', 'STANDARD');
