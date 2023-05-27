@@ -1,7 +1,7 @@
 package com.example.learninghub.course;
 
 import com.example.learninghub.course.courseproblem.CourseProblem;
-import com.example.learninghub.problem.Problem;
+import com.example.learninghub.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,10 +19,15 @@ public class Course {
     private Integer id;
     @Column(name = "name")
     private String name;
+    @Column(name = "short_description")
+    private String shortDescription;
     @Column(name = "description")
     private String description;
     @OneToMany(mappedBy = "course")
     @JsonIgnore
     @ToString.Exclude private Set<CourseProblem> problems;
+    @ManyToMany(mappedBy = "courses")
+    @JsonIgnore
+    @ToString.Exclude private Set<User> users;
 
 }

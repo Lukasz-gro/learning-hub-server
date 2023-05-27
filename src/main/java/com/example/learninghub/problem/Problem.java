@@ -1,7 +1,9 @@
 package com.example.learninghub.problem;
 
 import com.example.learninghub.course.courseproblem.CourseProblem;
+import com.example.learninghub.hint.Hint;
 import com.example.learninghub.submit.Submit;
+import com.example.learninghub.tag.Tag;
 import com.example.learninghub.test.Test;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -22,12 +24,25 @@ public class Problem {
     private String name;
     @Column(name = "description")
     private String description;
-    @OneToMany(mappedBy = "problem")
-    @JsonIgnore
-    @ToString.Exclude private Set<Test> tests;
+    @Column(name = "prompt")
+    private String prompt;
+
     @OneToMany(mappedBy = "problem")
     @JsonIgnore
     @ToString.Exclude private Set<CourseProblem> courses;
+    @ManyToMany
+    @JoinTable(
+            name = "problem_tag",
+            joinColumns = @JoinColumn(name = "problem_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    @JsonIgnore
+    @ToString.Exclude private Set<Tag> tags;
+    @OneToMany(mappedBy = "problem")
+    @JsonIgnore
+    @ToString.Exclude private Set<Hint> hints;
+    @OneToMany(mappedBy = "problem")
+    @JsonIgnore
+    @ToString.Exclude private Set<Test> tests;
     @OneToMany(mappedBy = "problem")
     @JsonIgnore
     @ToString.Exclude private Set<Submit> submits;
