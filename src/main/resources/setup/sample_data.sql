@@ -43,6 +43,6 @@ VALUES
     (5, 'Sample input 5', 'Sample output 5');
 
 INSERT INTO
-    _user(username, password, email)
+    _user(username, password, email, role)
 VALUES
-    ('user 1', 'password 1', 'user1@email.com');
+    ('user 1', 'password 1', 'user1@email.com', 'STANDARD');
