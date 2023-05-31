@@ -37,10 +37,8 @@ public class AuthenticationService {
 //                        request.getPassword()
 //                )
 //        );
-        System.out.println("auth/authenticate called 1");
         var user = repository.findByUsername(request.getUsername()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
-        System.out.println("auth/authenticate called 2");
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
 }
