@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/v1/course")
 public class CourseController {
 
     private final CourseService courseService;
@@ -20,17 +19,17 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @GetMapping("{courseId}")
+    @GetMapping("/v1/auth/course/{courseId}")
     public Course getCourse(@PathVariable("courseId") Integer id) {
         return courseService.getCourse(id);
     }
 
-    @GetMapping("all")
+    @GetMapping("/v1/auth/course/all")
     public List<Course> getAllCourses() {
         return courseService.getAllCourses();
     }
 
-    @GetMapping("{courseId}/problems")
+    @GetMapping("/v1/auth/course/{courseId}/problems")
     public List<Problem> getCourseProblems(@PathVariable("courseId") Integer id) {
         return courseService.getCourseProblems(id);
     }
