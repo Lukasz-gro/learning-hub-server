@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/v1/problem")
 public class ProblemController {
 
     private final ProblemService problemService;
@@ -17,7 +16,7 @@ public class ProblemController {
         this.problemService = problemService;
     }
 
-    @GetMapping("{problemId}")
+    @GetMapping("/v1/auth/problem/{problemId}")
     public Problem getProblem(@PathVariable("problemId") Integer id) {
         return problemService.getProblem(id);
     }

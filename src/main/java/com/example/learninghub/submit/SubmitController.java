@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/v1/submit")
 public class SubmitController {
 
     private final SubmitService submitService;
@@ -14,7 +13,7 @@ public class SubmitController {
         this.submitService = submitService;
     }
 
-    @GetMapping({"{submitId}"})
+    @GetMapping({"/v1/auth/submit/{submitId}"})
     public Submit getSubmit(@PathVariable("submitId") Integer id) {
         return submitService.getSubmit(id);
     }
