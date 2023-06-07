@@ -69,11 +69,7 @@ public class JudgeQueue {
                 StringBuffer sb = new StringBuffer();
 
                 if (userOutputArr.length > 0 && userOutputArr[0].equals("RTE?*#.")) {
-                    for(int i = 1; i < userOutputArr.length; i++) {
-                        sb.append(userOutputArr[i]);
-                        sb.append(" ");
-                    }
-                    submitService.updateErrorMessage(submitID, sb.toString());
+                    submitService.updateErrorMessage(submitID, userOutputVal);
                     submitService.updateSubmit(submitID, Status.RTE);
                 } else {
                     for(int i = 0; i < userOutputArr.length; i++) {
