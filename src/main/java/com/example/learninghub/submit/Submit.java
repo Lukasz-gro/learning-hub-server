@@ -21,6 +21,10 @@ public class Submit {
     private Integer id;
     @Column(name = "code")
     private String code;
+    @Column(name = "error")
+    private String error;
+    @Column(name = "output")
+    private String output;
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status")
     private Status status;
