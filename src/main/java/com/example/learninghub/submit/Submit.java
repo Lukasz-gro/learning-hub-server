@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 
 @Getter
@@ -30,7 +30,7 @@ public class Submit {
     @Column(name = "status")
     private Status status;
     @Column(name = "date")
-    private Date date;
+    private Timestamp date;
     @ManyToOne
     @JoinColumn(name = "problem_id")
     @JsonIgnore

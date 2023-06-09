@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Getter
 @ToString
@@ -22,7 +22,7 @@ public class ChatMessage {
     @Column(name = "message")
     private String message;
     @Column(name = "date")
-    private Date date;
+    private Timestamp date;
     @Column(name = "is_user")
     private Boolean isUser;
     @ManyToOne
@@ -34,7 +34,7 @@ public class ChatMessage {
     @JsonIgnore
     @ToString.Exclude private Problem problem;
 
-    public ChatMessage(String message, Date date, Boolean isUser, User user, Problem problem) {
+    public ChatMessage(String message, Timestamp date, Boolean isUser, User user, Problem problem) {
         this.message = message;
         this.date = date;
         this.isUser = isUser;
