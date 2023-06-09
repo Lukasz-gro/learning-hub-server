@@ -3,12 +3,9 @@ package com.example.learninghub.course.courseproblem;
 import com.example.learninghub.course.Course;
 import com.example.learninghub.problem.Problem;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
-@ToString
 @Entity(name = "CourseProblem")
 @Table(name = "course_problem")
 public class CourseProblem {

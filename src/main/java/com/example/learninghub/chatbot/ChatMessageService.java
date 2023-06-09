@@ -32,14 +32,16 @@ public class ChatMessageService {
         Set<ChatMessage> allMessages = user.getChatMessages();
         return allMessages.stream()
                 .filter(chatMessage -> chatMessage.getProblem().getId().equals(problemId))
-                .sorted((x, y) -> {
-                    if (x.getDate().before(y.getDate())) {
-                        return -1;
-                    } else if (x.getDate().after(y.getDate())) {
-                        return 1;
-                    }
-                    return 0;
-                }).collect(Collectors.toList());
+                .collect(Collectors.toList());
+        //TODO sort after changing date type
+//                .sorted((x, y) -> {
+//                    if (x.getDate().before(y.getDate())) {
+//                        return -1;
+//                    } else if (x.getDate().after(y.getDate())) {
+//                        return 1;
+//                    }
+//                    return 0;
+//                }).collect(Collectors.toList());
     }
 
     public void addChatMessage(AddMessageRequest request) {

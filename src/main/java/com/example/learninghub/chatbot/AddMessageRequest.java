@@ -1,8 +1,8 @@
 package com.example.learninghub.chatbot;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class AddMessageRequest {
     private String username;
     private Integer problemId;
