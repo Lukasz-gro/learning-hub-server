@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class AddMessageRequest {
-    private Integer userId;
+    private String username;
     private Integer problemId;
     private String message;
     private Boolean isUserMessage;

@@ -27,11 +27,11 @@ public class ChatMessageService {
     }
 
 
-    public List<ChatMessage> getMessagesHistory(Integer userId, Integer problemId) {
+    public List<ChatMessage> getMessagesHistory(String username, Integer problemId) {
         List<ChatMessage> allMessages = chatMessageRepository.findAll();
         return allMessages.stream()
                 .filter(chatMessage ->
-                        chatMessage.getUser().getId().equals(userId) &&
+                        chatMessage.getUser().getUsername().equals(username) &&
                                 chatMessage.getProblem().getId().equals(problemId))
                 .sorted((x, y) -> {
                     if (x.getDate().before(y.getDate())) {
@@ -44,7 +44,7 @@ public class ChatMessageService {
     }
 
     public void addChatMessage(AddMessageRequest request) {
-        User user = userService.getUser(request.getUserId());
+        User user = userService.getUser(request.getUsername());
         Problem problem = problemService.getProblem(request.getProblemId());
         chatMessageRepository.save(new ChatMessage(request.getMessage(), new Date(new java.util.Date().getTime()),
                 request.getIsUserMessage(), user, problem));

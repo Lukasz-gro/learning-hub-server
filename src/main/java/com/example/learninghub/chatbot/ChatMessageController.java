@@ -16,11 +16,11 @@ public class ChatMessageController {
         this.chatMessageService = chatMessageService;
     }
 
-    @GetMapping("/v1/auth/chat-bot/{userId}/{problemId}/history")
-    public List<ChatMessage> getMessagesHistory(@PathVariable("userId") Integer userId,
+    @GetMapping("/v1/auth/chat-bot/{username}/{problemId}/history")
+    public List<ChatMessage> getMessagesHistory(@PathVariable("username") String username,
                                                 @PathVariable("problemId") Integer problemId) {
         //TODO check token
-        return chatMessageService.getMessagesHistory(userId, problemId);
+        return chatMessageService.getMessagesHistory(username, problemId);
     }
 
     @PostMapping("/v1/auth/chat-bot/add-message")
