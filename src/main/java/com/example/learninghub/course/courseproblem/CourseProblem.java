@@ -7,7 +7,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
-@Data
+@Getter
+@ToString
 @Entity(name = "CourseProblem")
 @Table(name = "course_problem")
 public class CourseProblem {
