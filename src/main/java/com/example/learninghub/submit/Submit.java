@@ -21,8 +21,8 @@ public class Submit {
     private Integer id;
     @Column(name = "code")
     private String code;
-    @Column(name = "error")
-    private String error;
+    @Column(name = "error_message")
+    private String errorMessage;
     @Column(name = "output")
     private String output;
     @Enumerated(value = EnumType.STRING)

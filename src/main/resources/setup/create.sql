@@ -78,6 +78,6 @@ CREATE TABLE submit (
     status              text NOT NULL,
     date                date NOT NULL,
     user_id             int REFERENCES _user(id),
-    error               text,
+    error_message       text,
     output              text
 );

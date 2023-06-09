@@ -21,8 +21,8 @@ public interface SubmitRepository extends JpaRepository<Submit, Integer> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Submit s set s.error = :error where s.id = :id")
-    void updateSubmitErrorMessage(@Param("id") Integer id, @Param("error") String errorMessage);
+    @Query("UPDATE Submit s set s.errorMessage = :error_message where s.id = :id")
+    void updateSubmitErrorMessage(@Param("id") Integer id, @Param("error_message") String errorMessage);
 
     @Modifying
     @Transactional
