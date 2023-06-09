@@ -1,4 +1,4 @@
-package com.example.learninghub.chatbot;
+package com.example.learninghub.chatmessage;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

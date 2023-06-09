@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS chat_message;
 DROP TABLE IF EXISTS submit;
 DROP TABLE IF EXISTS user_course;
 DROP TABLE IF EXISTS _user;
@@ -78,4 +79,13 @@ CREATE TABLE submit (
     status              text NOT NULL,
     date                date NOT NULL,
     user_id             int REFERENCES _user(id)
+);
+
+CREATE TABLE chat_message (
+    id                  serial PRIMARY KEY,
+    user_id             int REFERENCES _user(id),
+    problem_id          int REFERENCES problem(id),
+    message             TEXT NOT NULL,
+    date                date NOT NULL,
+    is_user_message     boolean NOT NULL
 );
