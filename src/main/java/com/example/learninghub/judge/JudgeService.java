@@ -10,87 +10,133 @@ public class JudgeService {
     private final String dockerPath = System.getenv("DOCKER_DIR_PATH");
     private final String scriptsPath = dockerPath + "scripts/";
     private final String filesPath = "/tmp/";
+    private String containerName;
+    private String output = "";
 
     public String runCode(JudgeParams judgeParams, Integer submitID, String input) {
-        System.out.println("runCode2");
-        String containerName = submitID + "_" + judgeParams.getTestCase();
-        execCommand(scriptsPath + "runContainer.sh " + containerName);
-        String output = switch (judgeParams.getLanguage()) {
-            case "python" -> handlePython(containerName, judgeParams.getCode(), input);
-            case "cpp" -> handleCpp(containerName, judgeParams.getCode(), input);
-            case "java" -> handleJava(containerName, judgeParams.getCode(), input);
-            default -> throw new RuntimeException("Wrong language");
-        };
+        try {
+            System.out.println("runCode2");
+            containerName = submitID + "_" + judgeParams.getTestCase();
+            execCommand(scriptsPath + "runContainer.sh " + containerName);
+            int result = switch (judgeParams.getLanguage()) {
+                case "python" -> handlePython(containerName, judgeParams.getCode(), input);
+                case "cpp" -> handleCpp(containerName, judgeParams.getCode(), input);
+                case "java" -> handleJava(containerName, judgeParams.getCode(), input);
+                default -> throw new RuntimeException("Wrong language");
+            };
+            stopContainer();
+            System.out.println("output from container: " + output);
+            return result == 1 ? "RTE?*#. " + output : output;
+        } catch (Exception e) {
+            return "Interrupted";
+        }
+    }
+
+    public void stopContainer() {
         new Thread(() -> {
             execCommand("docker stop " + containerName);
         }).start();
-        System.out.println("output from container: " + output);
-        return output;
     }
 
-    private String handlePython(String containerName, String code, String input) {
+    private int handlePython(String containerName, String code, String input) {
         String codeFileName = containerName + ".py";
         String inputFileName = containerName + ".in";
         makeFile(filesPath + codeFileName, code);
         makeFile(filesPath + inputFileName, input);
         execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + codeFileName);
         execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + inputFileName);
-        String output = execCommand("docker exec " + containerName + " ./scripts/python/run.sh " + codeFileName + " " + inputFileName);
+        execCommand("docker exec " + containerName + " chmod +x ./scripts/python/run.sh");
+
+        output = "";
+        int result = execCommand("docker exec " + containerName + " ./scripts/python/run.sh " + codeFileName + " " + inputFileName);
         try {
             deleteFile(filesPath + codeFileName);
             deleteFile(filesPath + inputFileName);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return output;
+        return result;
     }
 
-    private String handleCpp(String containerName, String code, String input) {
+    private int handleCpp(String containerName, String code, String input) {
         String codeFileName = containerName + ".cpp";
         String inputFileName = containerName + ".in";
         makeFile(filesPath + codeFileName, code);
         makeFile(filesPath + inputFileName, input);
         execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + codeFileName);
         execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + inputFileName);
-        execCommand("docker exec " + containerName + " ./scripts/cpp/compile.sh " + codeFileName + " main");
-        String output = execCommand("docker exec " + containerName + " ./scripts/cpp/run.sh main " + inputFileName);
+        execCommand("docker exec " + containerName + " chmod +x ./scripts/cpp/compile.sh");
+        execCommand("docker exec " + containerName + " chmod +x ./scripts/cpp/run.sh");
+
+        output = "";
+        int result = execCommand("docker exec " + containerName + " ./scripts/cpp/compile.sh " + codeFileName + " main");
+        if (result == 0) {
+            output = "";
+            result = execCommand("docker exec " + containerName + " ./scripts/cpp/run.sh main " + inputFileName);
+        }
         try {
             deleteFile(filesPath + codeFileName);
             deleteFile(filesPath + inputFileName);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return output;
+        return result;
     }
 
-    private String handleJava(String containerName, String code, String input) {
-        //TODO:
-        throw new RuntimeException("Java handling isn't implemented yet");
+    private int handleJava(String containerName, String code, String input) {
+        String codeFileName = containerName + ".java";
+        String inputFileName = containerName + ".in";
+        makeFile(filesPath + codeFileName, code);
+        makeFile(filesPath + inputFileName, input);
+        execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + codeFileName);
+        execCommand(scriptsPath + "copyToContainer.sh " + containerName + " " + filesPath + inputFileName);
+        execCommand("docker exec " + containerName + " chmod +x ./scripts/java/compile.sh");
+        execCommand("docker exec " + containerName + " chmod +x ./scripts/java/run.sh");
+
+        output = "";
+        int result = execCommand("docker exec " + containerName + " ./scripts/java/compile.sh " + codeFileName);
+        if (result == 0) {
+            output = "";
+            result = execCommand("docker exec " + containerName + " ./scripts/java/run.sh " + containerName + " " + inputFileName);
+        }
+        try {
+            deleteFile(filesPath + codeFileName);
+            deleteFile(filesPath + inputFileName);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return result;
     }
 
-    private String execCommand(String command) {
+    private int execCommand(String command) {
         try {
             Process process = Runtime.getRuntime().exec(command);
-            StringBuilder output = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
             String line;
             while ((line = reader.readLine()) != null) {
-                output.append(line).append("\n");
+                sb.append(line).append("\n");
             }
 
-            int exitVal = process.waitFor();
-            if (exitVal == 0) {
-                System.out.println("Success! " + command);
-                return output.toString();
-            } else {
-                System.out.println("Failure! " + command);
-                return output.append("RTE?*#.").toString();
+            try {
+                int exitVal = process.waitFor();
+                if (exitVal == 0) {
+                    System.out.println("Success! " + command);
+                    output = sb.toString();
+                    return 0;
+                } else {
+                    System.out.println("Failure! " + command);
+                    output = sb.toString();
+                    return 1;
+                }
+            } catch (InterruptedException e) {
+                return 2;
             }
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return -1;
     }
 
     private void makeFile(String path, String content) {

@@ -77,5 +77,7 @@ CREATE TABLE submit (
     code                text NOT NULL,
     status              text NOT NULL,
     date                date NOT NULL,
-    user_id             int REFERENCES _user(id)
+    user_id             int REFERENCES _user(id),
+    error_message       text,
+    output              text
 );
