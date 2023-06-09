@@ -59,6 +59,6 @@ public class SubmitService {
         if (!submitRepository.existsById(submitId)) {
             throw new NoSuchElementException("No submit with id: " + submitId);
         }
-        submitRepository.updateSubmitErrorMessage(submitId, output);
+        submitRepository.updateSubmitOutput(submitId, output);
     }
 }
