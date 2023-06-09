@@ -8,7 +8,8 @@ import lombok.*;
 
 import java.sql.Date;
 
-@Data
+@Getter
+@ToString
 @NoArgsConstructor
 @Entity(name = "ChatMessage")
 @Table(name = "chat_message")
@@ -22,8 +23,8 @@ public class ChatMessage {
     private String message;
     @Column(name = "date")
     private Date date;
-    @Column(name = "is_user_message")
-    private Boolean isUserMessage;
+    @Column(name = "is_user")
+    private Boolean isUser;
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
@@ -33,10 +34,10 @@ public class ChatMessage {
     @JsonIgnore
     @ToString.Exclude private Problem problem;
 
-    public ChatMessage(String message, Date date, Boolean isUserMessage, User user, Problem problem) {
+    public ChatMessage(String message, Date date, Boolean isUser, User user, Problem problem) {
         this.message = message;
         this.date = date;
-        this.isUserMessage = isUserMessage;
+        this.isUser = isUser;
         this.user = user;
         this.problem = problem;
     }

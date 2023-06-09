@@ -9,7 +9,8 @@ import lombok.*;
 import java.sql.Date;
 
 
-@Data
+@Getter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "Submit")

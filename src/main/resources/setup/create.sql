@@ -89,5 +89,5 @@ CREATE TABLE chat_message (
     problem_id          int REFERENCES problem(id),
     message             TEXT NOT NULL,
     date                date NOT NULL,
-    is_user_message     boolean NOT NULL
+    is_user             boolean NOT NULL
 );

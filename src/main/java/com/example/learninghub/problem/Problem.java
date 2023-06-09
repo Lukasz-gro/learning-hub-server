@@ -12,7 +12,8 @@ import lombok.*;
 
 import java.util.Set;
 
-@Data
+@Getter
+@ToString
 @Entity(name = "Problem")
 @Table(name = "problem")
 public class Problem {

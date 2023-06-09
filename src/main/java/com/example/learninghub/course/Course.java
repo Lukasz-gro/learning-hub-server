@@ -8,7 +8,8 @@ import lombok.*;
 
 import java.util.Set;
 
-@Data
+@Getter
+@ToString
 @Entity(name = "Course")
 @Table(name = "course")
 public class Course {

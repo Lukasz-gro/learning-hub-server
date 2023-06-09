@@ -7,5 +7,5 @@ public class AddMessageRequest {
     private String username;
     private Integer problemId;
     private String message;
-    private Boolean isUserMessage;
+    private Boolean isUser;
 }
