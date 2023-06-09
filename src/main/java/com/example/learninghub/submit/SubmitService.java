@@ -7,8 +7,8 @@ import com.example.learninghub.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -38,7 +38,7 @@ public class SubmitService {
         Problem problem = problemService.getProblem(problemId);
         User user = userService.getUser(userId);
         submitRepository.save(new Submit(submitId, code, "", "", status,
-                new Date(new java.util.Date().getTime()), problem, user));
+                new Date(), problem, user));
         return submitId;
     }
 

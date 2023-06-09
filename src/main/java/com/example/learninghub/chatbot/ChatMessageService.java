@@ -1,10 +1,13 @@
 package com.example.learninghub.chatbot;
 
+import com.example.learninghub.problem.Problem;
+import com.example.learninghub.problem.ProblemService;
 import com.example.learninghub.user.User;
 import com.example.learninghub.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -14,11 +17,13 @@ public class ChatMessageService {
 
     private final ChatMessageRepository chatMessageRepository;
     private final UserService userService;
+    private final ProblemService problemService;
 
     @Autowired
-    public ChatMessageService(ChatMessageRepository chatMessageRepository, UserService userService) {
+    public ChatMessageService(ChatMessageRepository chatMessageRepository, UserService userService, ProblemService problemService) {
         this.chatMessageRepository = chatMessageRepository;
         this.userService = userService;
+        this.problemService = problemService;
     }
 
 
@@ -35,5 +40,11 @@ public class ChatMessageService {
                     }
                     return 0;
                 }).collect(Collectors.toList());
+    }
+
+    public void addChatMessage(AddMessageRequest request) {
+        User user = userService.getUser(request.getUserId());
+        Problem problem = problemService.getProblem(request.getProblemId());
+        chatMessageRepository.save(new ChatMessage(request.getMessage(), new Date(), request.getIsUserMessage(), user, problem));
     }
 }
