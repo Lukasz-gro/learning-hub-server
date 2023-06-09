@@ -23,7 +23,7 @@ public class ChatMessageController {
         return chatMessageService.getMessagesHistory(userId, problemId);
     }
 
-    @PostMapping("v1/auth/chat-bot/add-message")
+    @PostMapping("/v1/auth/chat-bot/add-message")
     public void addChatMessage(@RequestBody AddMessageRequest request) {
         //TODO check token
         chatMessageService.addChatMessage(request);

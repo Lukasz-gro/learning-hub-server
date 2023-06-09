@@ -38,7 +38,7 @@ public class SubmitService {
         Problem problem = problemService.getProblem(problemId);
         User user = userService.getUser(userId);
         submitRepository.save(new Submit(submitId, code, "", "", status,
-                new Date(), problem, user));
+                new java.sql.Date(new java.util.Date().getTime()), problem, user));
         return submitId;
     }
 

@@ -46,7 +46,7 @@ public class Problem {
     @OneToMany(mappedBy = "problem")
     @JsonIgnore
     @ToString.Exclude private Set<Submit> submits;
-    @OneToMany
+    @OneToMany(mappedBy = "problem")
     @JsonIgnore
     @ToString.Exclude private Set<ChatMessage> chatMessages;
 

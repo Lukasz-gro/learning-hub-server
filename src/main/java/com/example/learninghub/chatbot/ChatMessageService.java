@@ -7,7 +7,7 @@ import com.example.learninghub.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,10 +28,11 @@ public class ChatMessageService {
 
 
     public List<ChatMessage> getMessagesHistory(Integer userId, Integer problemId) {
-        User user = userService.getUser(userId);
-        Set<ChatMessage> allMessages = user.getChatMessages();
+        List<ChatMessage> allMessages = chatMessageRepository.findAll();
         return allMessages.stream()
-                .filter(chatMessage -> chatMessage.getProblem().getId().equals(problemId))
+                .filter(chatMessage ->
+                        chatMessage.getUser().getId().equals(userId) &&
+                                chatMessage.getProblem().getId().equals(problemId))
                 .sorted((x, y) -> {
                     if (x.getDate().before(y.getDate())) {
                         return -1;
@@ -45,6 +46,7 @@ public class ChatMessageService {
     public void addChatMessage(AddMessageRequest request) {
         User user = userService.getUser(request.getUserId());
         Problem problem = problemService.getProblem(request.getProblemId());
-        chatMessageRepository.save(new ChatMessage(request.getMessage(), new Date(), request.getIsUserMessage(), user, problem));
+        chatMessageRepository.save(new ChatMessage(request.getMessage(), new Date(new java.util.Date().getTime()),
+                request.getIsUserMessage(), user, problem));
     }
 }
