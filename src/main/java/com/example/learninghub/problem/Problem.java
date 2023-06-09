@@ -1,6 +1,6 @@
 package com.example.learninghub.problem;
 
-import com.example.learninghub.chatmessage.ChatMessage;
+import com.example.learninghub.chatbot.ChatMessage;
 import com.example.learninghub.course.courseproblem.CourseProblem;
 import com.example.learninghub.hint.Hint;
 import com.example.learninghub.submit.Submit;

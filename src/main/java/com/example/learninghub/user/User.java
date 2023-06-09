@@ -1,6 +1,6 @@
 package com.example.learninghub.user;
 
-import com.example.learninghub.chatmessage.ChatMessage;
+import com.example.learninghub.chatbot.ChatMessage;
 import com.example.learninghub.course.Course;
 import com.example.learninghub.submit.Submit;
 import com.fasterxml.jackson.annotation.JsonIgnore;

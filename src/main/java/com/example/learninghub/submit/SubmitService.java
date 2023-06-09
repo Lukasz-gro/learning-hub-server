@@ -37,7 +37,8 @@ public class SubmitService {
         Integer submitId = maxSubmitId.incrementAndGet();
         Problem problem = problemService.getProblem(problemId);
         User user = userService.getUser(userId);
-        submitRepository.save(new Submit(submitId, code, "", "", status, new Date(new java.util.Date().getTime()), problem, user));
+        submitRepository.save(new Submit(submitId, code, "", "", status,
+                new Date(new java.util.Date().getTime()), problem, user));
         return submitId;
     }
 

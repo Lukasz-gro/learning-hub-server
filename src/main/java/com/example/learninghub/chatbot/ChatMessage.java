@@ -1,4 +1,4 @@
-package com.example.learninghub.chatmessage;
+package com.example.learninghub.chatbot;
 
 import com.example.learninghub.problem.Problem;
 import com.example.learninghub.user.User;
