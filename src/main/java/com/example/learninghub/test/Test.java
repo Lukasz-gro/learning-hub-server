@@ -4,9 +4,11 @@ import com.example.learninghub.problem.Problem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.ToString;
 
-@Data
+@Getter
+@ToString
 @Entity(name = "Test")
 @Table(name = "test")
 public class Test {

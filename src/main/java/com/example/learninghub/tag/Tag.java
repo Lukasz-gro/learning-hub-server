@@ -3,10 +3,13 @@ package com.example.learninghub.tag;
 import com.example.learninghub.problem.Problem;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Set;
 
-@Data
+@Getter
+@ToString
 @Entity(name = "Tag")
 @Table(name = "tag")
 public class Tag {

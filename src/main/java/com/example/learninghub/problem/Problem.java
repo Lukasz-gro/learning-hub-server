@@ -1,5 +1,6 @@
 package com.example.learninghub.problem;
 
+import com.example.learninghub.chatbot.ChatMessage;
 import com.example.learninghub.course.courseproblem.CourseProblem;
 import com.example.learninghub.hint.Hint;
 import com.example.learninghub.submit.Submit;
@@ -11,7 +12,8 @@ import lombok.*;
 
 import java.util.Set;
 
-@Data
+@Getter
+@ToString
 @Entity(name = "Problem")
 @Table(name = "problem")
 public class Problem {
@@ -26,7 +28,6 @@ public class Problem {
     private String description;
     @Column(name = "prompt")
     private String prompt;
-
     @OneToMany(mappedBy = "problem")
     @JsonIgnore
     @ToString.Exclude private Set<CourseProblem> courses;
@@ -46,5 +47,8 @@ public class Problem {
     @OneToMany(mappedBy = "problem")
     @JsonIgnore
     @ToString.Exclude private Set<Submit> submits;
+    @OneToMany(mappedBy = "problem")
+    @JsonIgnore
+    @ToString.Exclude private Set<ChatMessage> chatMessages;
 
 }

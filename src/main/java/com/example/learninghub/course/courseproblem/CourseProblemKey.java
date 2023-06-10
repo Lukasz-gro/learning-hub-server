@@ -3,10 +3,13 @@ package com.example.learninghub.course.courseproblem;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
-@Data
+@Getter
+@ToString
 @Embeddable
 public class CourseProblemKey implements Serializable {
 

@@ -4,10 +4,8 @@ import com.example.learninghub.course.Course;
 import com.example.learninghub.problem.Problem;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
-@ToString
 @Entity(name = "CourseProblem")
 @Table(name = "course_problem")
 public class CourseProblem {

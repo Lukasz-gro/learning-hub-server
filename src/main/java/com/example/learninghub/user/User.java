@@ -1,5 +1,6 @@
 package com.example.learninghub.user;
 
+import com.example.learninghub.chatbot.ChatMessage;
 import com.example.learninghub.course.Course;
 import com.example.learninghub.submit.Submit;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -14,7 +15,8 @@ import java.util.List;
 import java.util.Set;
 
 
-@Data
+@Getter
+@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,7 +37,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
-
     @ManyToMany
     @JoinTable(
             name = "user_course",
@@ -46,6 +47,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     @ToString.Exclude private Set<Submit> submits;
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    @ToString.Exclude private Set<ChatMessage> chatMessages;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
