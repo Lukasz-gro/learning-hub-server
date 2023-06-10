@@ -8,6 +8,7 @@ fi
 myClass=$(ls *.class)
 name=${myClass%.*}
 
+touch out
 java $name < "$2" > out 2>error
 
 if [ -s "error" ]; then

@@ -5,6 +5,7 @@ if [ $# -ne 2 ]; then
 	exit
 fi
 
+touch out
 python3 "$1" < "$2" > out 2>error
 
 if [ -s "error" ]; then
