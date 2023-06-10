@@ -5,11 +5,15 @@ if [ $# -ne 1 ]; then
 	exit
 fi
 
-javac $1 2>error
+myClass=($(grep 'public class' $1))
+myClass=${myClass[2]}
+name=$(ls *.java)
+name=${name%.*}
+mv ${name}.java ${myClass}.java
+
+javac ${myClass}.java 2>error
 
 if [ -s "error" ]; then
   cat error
   exit 1
-else
-  cat out
 fi
