@@ -4,14 +4,19 @@ import com.example.learninghub.problem.Problem;
 import com.example.learninghub.problem.ProblemService;
 import com.example.learninghub.user.User;
 import com.example.learninghub.user.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.security.sasl.AuthenticationException;
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Service
 public class SubmitService {
@@ -62,5 +67,33 @@ public class SubmitService {
             throw new NoSuchElementException("No submit with id: " + submitId);
         }
         submitRepository.updateSubmitOutput(submitId, output);
+    }
+
+    public boolean authenticate(HttpServletRequest request, Integer submitId) {
+        Principal principal = request.getUserPrincipal();
+        String username = principal.getName();
+        Submit submit = getSubmit(submitId);
+        User requestUser = userService.getUser(username);
+        return submit.getUser().equals(requestUser);
+    }
+
+    public boolean authenticate(HttpServletRequest request, String username) {
+        Principal principal = request.getUserPrincipal();
+        String requestUser = principal.getName();
+        return username.equals(requestUser);
+    }
+
+    public List<Submit> getSubmitHistory(String username, Integer problemId) {
+        User user = userService.getUser(username);
+        return user.getSubmits().stream()
+                .filter(submit -> submit.getProblem().getId().equals(problemId))
+                .sorted((x, y) -> {
+                    if (x.getDate().before(y.getDate())) {
+                        return -1;
+                    } else if (x.getDate().after(y.getDate())) {
+                        return 1;
+                    }
+                    return 0;
+        }).toList();
     }
 }

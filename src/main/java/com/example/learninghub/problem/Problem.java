@@ -6,6 +6,7 @@ import com.example.learninghub.hint.Hint;
 import com.example.learninghub.submit.Submit;
 import com.example.learninghub.tag.Tag;
 import com.example.learninghub.test.Test;
+import com.example.learninghub.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,6 +15,7 @@ import java.util.Set;
 
 @Getter
 @ToString
+@NoArgsConstructor
 @Entity(name = "Problem")
 @Table(name = "problem")
 public class Problem {
@@ -51,4 +53,28 @@ public class Problem {
     @JsonIgnore
     @ToString.Exclude private Set<ChatMessage> chatMessages;
 
+    protected Problem(Problem problem) {
+        this.id = problem.id;
+        this.name = problem.name;
+        this.description = problem.description;
+        this.prompt = problem.prompt;
+        this.courses = problem.courses;
+        this.tags = problem.tags;
+        this.hints = problem.hints;
+        this.tests = problem.tests;
+        this.submits = problem.submits;
+        this.chatMessages = problem.chatMessages;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Problem)) {
+            return false;
+        }
+        Problem other = (Problem) o;
+        return this.id.equals(other.id);
+    }
 }
