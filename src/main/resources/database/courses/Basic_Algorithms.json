@@ -1,0 +1,15 @@
+{
+  "name": "Basic algorithms",
+  "short_description": "Start your algorithmic journey here",
+  "description": "In this course you will learn how solve various problems using basic algorithms and data structures",
+  "problems": [
+    {
+      "name": "Janek at the Gym",
+      "ordinal_number": 1
+    },
+    {
+      "name": "Sort Array",
+      "ordinal_number": 2
+    }
+  ]
+}
