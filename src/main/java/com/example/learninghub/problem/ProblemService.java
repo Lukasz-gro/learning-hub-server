@@ -5,6 +5,7 @@ import com.example.learninghub.submit.SubmitService;
 import com.example.learninghub.user.User;
 import com.example.learninghub.user.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +14,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ProblemService {
 
     private final ProblemRepository problemRepository;
     private final UserService userService;
-
-    @Autowired
-    public ProblemService(ProblemRepository problemRepository, UserService userService) {
-        this.problemRepository = problemRepository;
-        this.userService = userService;
-    }
 
     public Problem getProblem(Integer problemId) {
         return problemRepository.findById(problemId).orElseThrow();

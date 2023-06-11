@@ -1,10 +1,13 @@
 package com.example.learninghub.submit;
 
 import com.example.learninghub.problem.Problem;
+import com.example.learninghub.problem.ProblemRepository;
 import com.example.learninghub.problem.ProblemService;
 import com.example.learninghub.user.User;
+import com.example.learninghub.user.UserRepository;
 import com.example.learninghub.user.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,21 +22,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class SubmitService {
 
     private final SubmitRepository submitRepository;
-    private final ProblemService problemService;
-    private final UserService userService;
+    private final ProblemRepository problemRepository;
+    private final UserRepository userRepository;
     private final AtomicInteger maxSubmitId = new AtomicInteger();
-
-    @Autowired
-    public SubmitService(SubmitRepository submitRepository, ProblemService problemService, UserService userService) {
-        this.submitRepository = submitRepository;
-        this.problemService = problemService;
-        this.userService = userService;
-        maxSubmitId.set(0);
-        submitRepository.findTopByOrderByIdDesc().ifPresent(submit -> maxSubmitId.set(submit.getId()));
-    }
 
     public Submit getSubmit(Integer id) {
         return submitRepository.findById(id).orElseThrow();
@@ -41,8 +36,8 @@ public class SubmitService {
 
     public Integer addSubmit(String code, Status status, Integer problemId, Integer userId) {
         Integer submitId = maxSubmitId.incrementAndGet();
-        Problem problem = problemService.getProblem(problemId);
-        User user = userService.getUser(userId);
+        Problem problem = problemRepository.findById(problemId).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow();
         submitRepository.save(new Submit(submitId, code, "", "", status,
                 new Timestamp(System.currentTimeMillis()), problem, user));
         return submitId;
@@ -73,7 +68,7 @@ public class SubmitService {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
         Submit submit = getSubmit(submitId);
-        User requestUser = userService.getUser(username);
+        User requestUser = userRepository.findByUsername(username).orElseThrow();
         return submit.getUser().equals(requestUser);
     }
 
@@ -84,7 +79,7 @@ public class SubmitService {
     }
 
     public List<Submit> getSubmitHistory(String username, Integer problemId) {
-        User user = userService.getUser(username);
+        User user = userRepository.findByUsername(username).orElseThrow();
         return user.getSubmits().stream()
                 .filter(submit -> submit.getProblem().getId().equals(problemId))
                 .sorted((x, y) -> {
