@@ -1,22 +1,24 @@
 package com.example.learninghub.user;
 
 import com.example.learninghub.course.Course;
+import com.example.learninghub.course.CourseRepository;
+import com.example.learninghub.course.CourseService;
 import com.example.learninghub.course.courseproblem.CourseProblem;
 import com.example.learninghub.problem.Problem;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
-
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     public User getUser(Integer userId) {
         return userRepository.findById(userId).orElseThrow();
