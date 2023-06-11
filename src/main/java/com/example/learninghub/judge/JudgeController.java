@@ -24,7 +24,7 @@ public class JudgeController {
     public ResponseEntity<Submit> queueCode(@RequestBody JudgeParams judgeParams) {
         Integer newSubmitId = submitService.addSubmit(judgeParams.getCode(), Status.QUE,
                 judgeParams.getProblemId(), judgeParams.getUsername());
-        judgeQueue.enqueue(judgeParams, newSubmitId);
+        judgeQueue.enqueueSubmit(judgeParams, newSubmitId);
         return ResponseEntity.ok(submitService.getSubmit(newSubmitId));
     }
 }

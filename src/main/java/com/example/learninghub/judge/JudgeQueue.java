@@ -28,7 +28,13 @@ public class JudgeQueue {
     }
 
 
-    public void enqueue(JudgeParams judgeParams, Integer submitID) {
+    public void enqueueSubmit(JudgeParams judgeParams, Integer submitID) {
+        for (int i = 0; i < testService.getTests(judgeParams.getProblemId()).size(); i++) {
+            enqueue(judgeParams, submitID, i);
+        }
+    }
+
+    private void enqueue(JudgeParams judgeParams, Integer submitID, Integer testCase) {
         new Thread(() -> {
             try {
                 linkedBlockingQueue.put(submitID);
@@ -36,8 +42,8 @@ public class JudgeQueue {
                 throw new RuntimeException(e);
             }
 
-            String input = testService.getTests(judgeParams.getProblemId()).get(judgeParams.getTestCase() - 1).getInput();
-            String output = testService.getTests(judgeParams.getProblemId()).get(judgeParams.getTestCase() - 1).getOutput();
+            String input = testService.getTests(judgeParams.getProblemId()).get(testCase).getInput();
+            String output = testService.getTests(judgeParams.getProblemId()).get(testCase).getOutput();
             final String[] userOutput = {null};
 
             Thread t1 = new Thread(() -> {
