@@ -6,6 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JudgeParams {
+    private String username;
     private String code;
     //TODO: enum
     private String language;

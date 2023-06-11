@@ -1,6 +1,8 @@
 package com.example.learninghub.chatbot;
 
 import com.example.learninghub.problem.Problem;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,16 +18,21 @@ public class ChatMessageController {
         this.chatMessageService = chatMessageService;
     }
 
-    @GetMapping("/v1/auth/chat-bot/{username}/{problemId}/history")
+    @GetMapping("/v1/chat-bot/{username}/{problemId}/history")
     public List<ChatMessage> getMessagesHistory(@PathVariable("username") String username,
-                                                @PathVariable("problemId") Integer problemId) {
-        //TODO check token
-        return chatMessageService.getMessagesHistory(username, problemId);
+                                                @PathVariable("problemId") Integer problemId,
+                                                HttpServletRequest request) {
+        if (chatMessageService.authenticate(request, username)) {
+            return chatMessageService.getMessagesHistory(username, problemId);
+        }
+        return null;
     }
 
-    @PostMapping("/v1/auth/chat-bot/add-message")
-    public void addChatMessage(@RequestBody AddMessageRequest request) {
-        //TODO check token
-        chatMessageService.addChatMessage(request);
+    @PostMapping("/v1/chat-bot/add-message")
+    public void addChatMessage(@RequestBody AddMessageRequest addMessageRequest,
+                               HttpServletRequest request) {
+        if (chatMessageService.authenticate(request, addMessageRequest.getUsername())) {
+            chatMessageService.addChatMessage(addMessageRequest);
+        }
     }
 }

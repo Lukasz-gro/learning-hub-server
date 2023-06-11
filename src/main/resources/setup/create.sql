@@ -91,3 +91,23 @@ CREATE TABLE chat_message (
     date                timestamp NOT NULL,
     is_user             boolean NOT NULL
 );
+
+-- BEGIN (each user gets access to every course for now)
+CREATE OR REPLACE FUNCTION user_add_course()
+returns TRIGGER AS $user_course_add$
+DECLARE
+    course_id course.id%TYPE;
+BEGIN
+    FOR course_id IN (SELECT id FROM course) LOOP
+        INSERT INTO user_course VALUES (NEW.id, course_id);
+    END LOOP;
+    RETURN NEW;
+END
+$user_course_add$
+language plpgsql;
+
+CREATE TRIGGER user_course_add AFTER INSERT
+    ON _user
+    FOR EACH ROW
+    EXECUTE PROCEDURE user_add_course();
+-- END (each user gets access to every course for now)
