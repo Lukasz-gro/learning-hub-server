@@ -82,11 +82,11 @@ public class SubmitService {
         User user = userRepository.findByUsername(username).orElseThrow();
         return user.getSubmits().stream()
                 .filter(submit -> submit.getProblem().getId().equals(problemId))
-                .sorted((x, y) -> {
+                .sorted((x, y) -> { // sort descending
                     if (x.getDate().before(y.getDate())) {
-                        return -1;
-                    } else if (x.getDate().after(y.getDate())) {
                         return 1;
+                    } else if (x.getDate().after(y.getDate())) {
+                        return -1;
                     }
                     return 0;
         }).toList();

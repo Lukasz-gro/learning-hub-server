@@ -32,16 +32,17 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
-    public List<Problem> getCourseProblems(Integer id) {
-        Course course = courseRepository.findById(id).orElseThrow();
-        return course.getProblems().stream().sorted((x, y) -> {
-            if (x.getOrdinalNumber() < y.getOrdinalNumber()) {
-                return -1;
-            } else if (x.getOrdinalNumber() > y.getOrdinalNumber()) {
-                return 1;
-            }
-            return 0;
-        }).map(CourseProblem::getProblem).toList();
+    public List<Problem> getCourseProblems(Integer courseId) {
+        Course course = courseRepository.findById(courseId).orElseThrow();
+        return course.getProblems().stream()
+                .sorted((x, y) -> { // sort ascending
+                    if (x.getOrdinalNumber() < y.getOrdinalNumber()) {
+                        return -1;
+                    } else if (x.getOrdinalNumber() > y.getOrdinalNumber()) {
+                        return 1;
+                    }
+                    return 0;
+                }).map(CourseProblem::getProblem).toList();
     }
 
     public boolean authenticate(HttpServletRequest request, Integer courseId) {
@@ -62,9 +63,7 @@ public class CourseService {
         Principal principal = request.getUserPrincipal();
         String username = principal.getName();
         User user = userRepository.findByUsername(username).orElseThrow();
-        Course course = user.getCourses().stream().filter(c -> c.getId().equals(courseId)).toList().get(0);
-        return course.getProblems().stream()
-                .map(courseProblem -> problemService.getUserProblem(user, courseProblem.getProblem()))
-                .collect(Collectors.toList());
+        List<Problem> problems = getCourseProblems(courseId);
+        return problems.stream().map(problem -> problemService.getUserProblem(user, problem)).toList();
     }
 }
