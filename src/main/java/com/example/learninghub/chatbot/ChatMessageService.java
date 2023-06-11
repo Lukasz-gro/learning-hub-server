@@ -4,10 +4,12 @@ import com.example.learninghub.problem.Problem;
 import com.example.learninghub.problem.ProblemService;
 import com.example.learninghub.user.User;
 import com.example.learninghub.user.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -42,5 +44,11 @@ public class ChatMessageService {
         Problem problem = problemService.getProblem(request.getProblemId());
         chatMessageRepository.save(new ChatMessage(request.getMessage(), new Timestamp(System.currentTimeMillis()),
                 request.getIsUser(), user, problem));
+    }
+
+    public boolean authenticate(HttpServletRequest request, String username) {
+        Principal principal = request.getUserPrincipal();
+        String requestUser = principal.getName();
+        return username.equals(requestUser);
     }
 }
