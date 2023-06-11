@@ -30,6 +30,9 @@ public class Problem {
     private String description;
     @Column(name = "prompt")
     private String prompt;
+    @Column(name = "solution_code")
+    @JsonIgnore
+    private String solutionCode;
     @OneToMany(mappedBy = "problem")
     @JsonIgnore
     @ToString.Exclude private Set<CourseProblem> courses;

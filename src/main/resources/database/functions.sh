@@ -26,27 +26,29 @@ add_course_problems() {
 
 add_problem() {
   path=$1
-  problem=`find $path -maxdepth 1 -type f`
+  problem=`find $path -maxdepth 1 -type f -name '*.json'`
   p_name=`jq -r .name $problem`
   p_description=`jq -r .description $problem`
   p_prompt=`jq -r .prompt $problem`
+  p_solution_code=`find $path -maxdepth 1 -type f -name '*.cpp' -exec cat {} +`
   count=`psql -d $DB_NAME -U $DB_USERNAME -tc "SELECT COUNT(id) FROM problem WHERE name = '$p_name'"`
   if [ $count -eq 1 ] ; then
     echo "Problem $p_name is already in database. If you want to update it use update_problems.sh script"
     return
   fi
 
-  psql -d $DB_NAME -U $DB_USERNAME -c "INSERT INTO problem (name, description, prompt) VALUES ('$p_name', '$p_description', '$p_prompt')"
+  psql -d $DB_NAME -U $DB_USERNAME -c "INSERT INTO problem (name, description, prompt, solution_code) VALUES ('$p_name', '$p_description', '$p_prompt', '$p_solution_code')"
   p_id=`psql -d $DB_NAME -U $DB_USERNAME -tc "SELECT id FROM problem WHERE name = '$p_name'"`
   add_problem_tests $path $p_id
 }
 
 update_problem() {
   path=$1
-  problem=`find $path -maxdepth 1 -type f`
+  problem=`find $path -maxdepth 1 -type f -name '*.json'`
   p_name=`jq -r .name $problem`
   p_description=`jq -r .description $problem`
   p_prompt=`jq -r .prompt $problem`
+  p_solution_code=`find $path -maxdepth 1 -type f -name '*.cpp' -exec cat {} +`
   count=`psql -d $DB_NAME -U $DB_USERNAME -tc "SELECT COUNT(id) FROM problem WHERE name = '$p_name'"`
   if [ $count -ne 1 ] ; then
     echo "There is no \"$p_name\" problem in database. To add problems use initialize_problems.sh script"
@@ -54,7 +56,7 @@ update_problem() {
   fi
 
   p_id=`psql -d $DB_NAME -U $DB_USERNAME -tc "SELECT id FROM problem WHERE name = '$p_name'"`
-  psql -d $DB_NAME -U $DB_USERNAME -c "UPDATE problem SET name = '$p_name', description = '$p_description', prompt = '$p_prompt' WHERE id = $p_id"
+  psql -d $DB_NAME -U $DB_USERNAME -c "UPDATE problem SET name = '$p_name', description = '$p_description', prompt = '$p_prompt', solution_code = '$p_solution_code' WHERE id = $p_id"
   psql -d $DB_NAME -U $DB_USERNAME -c "DELETE FROM test WHERE problem_id = $p_id"
   add_problem_tests $path $p_id
 }

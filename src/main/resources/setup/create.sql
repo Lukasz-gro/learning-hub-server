@@ -21,7 +21,8 @@ CREATE TABLE problem (
     id                  serial PRIMARY KEY,
     name                text NOT NULL UNIQUE,
     description         text NOT NULL UNIQUE,
-    prompt              text NOT NULL
+    prompt              text NOT NULL,
+    solution_code       text NOT NULL
 );
 
 CREATE TABLE course_problem (
