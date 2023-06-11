@@ -34,10 +34,10 @@ public class SubmitService {
         return submitRepository.findById(id).orElseThrow();
     }
 
-    public Integer addSubmit(String code, Status status, Integer problemId, Integer userId) {
+    public Integer addSubmit(String code, Status status, Integer problemId, String username) {
         Integer submitId = maxSubmitId.incrementAndGet();
         Problem problem = problemRepository.findById(problemId).orElseThrow();
-        User user = userRepository.findById(userId).orElseThrow();
+        User user = userRepository.findByUsername(username).orElseThrow();
         submitRepository.save(new Submit(submitId, code, "", "", status,
                 new Timestamp(System.currentTimeMillis()), problem, user));
         return submitId;

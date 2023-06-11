@@ -22,7 +22,8 @@ public class JudgeController {
 
     @PostMapping("queue-code")
     public ResponseEntity<Submit> queueCode(@RequestBody JudgeParams judgeParams) {
-        Integer newSubmitId = submitService.addSubmit(judgeParams.getCode(), Status.QUE, judgeParams.getProblemId(), 1);
+        Integer newSubmitId = submitService.addSubmit(judgeParams.getCode(), Status.QUE,
+                judgeParams.getProblemId(), judgeParams.getUsername());
         judgeQueue.enqueue(judgeParams, newSubmitId);
         return ResponseEntity.ok(submitService.getSubmit(newSubmitId));
     }
