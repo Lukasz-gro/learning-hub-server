@@ -21,7 +21,7 @@ public class JudgeQueue {
     JudgeQueue(SubmitService submitService, TestService testService) {
         this.submitService = submitService;
         this.testService = testService;
-        linkedBlockingQueue = new LinkedBlockingQueue<>(4);
+        linkedBlockingQueue = new LinkedBlockingQueue<>(2);
     }
 
 
