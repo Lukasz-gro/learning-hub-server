@@ -5,4 +5,4 @@ if [ $# -ne 1 ]; then
 	exit
 fi
 
-docker run -it --cpus=".2" -d --rm --name "$1" learning-hub-judge:latest
+docker run -it --cpus=".15" -d --rm --name "$1" learning-hub-judge:latest
