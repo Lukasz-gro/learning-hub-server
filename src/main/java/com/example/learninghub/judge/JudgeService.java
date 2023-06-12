@@ -13,10 +13,10 @@ public class JudgeService {
     private String containerName;
     private String output = "";
 
-    public String runCode(JudgeParams judgeParams, Integer submitID, String input) {
+    public String runCode(JudgeParams judgeParams, Integer submitID, String input, int testCase) {
         try {
             System.out.println("runCode2");
-            containerName = submitID + "_" + judgeParams.getTestCase();
+            containerName = judgeParams.getUsername() + "_" + submitID + "_" + testCase;
             execCommand(scriptsPath + "runContainer.sh " + containerName);
             int result = switch (judgeParams.getLanguage()) {
                 case "python" -> handlePython(containerName, judgeParams.getCode(), input);
