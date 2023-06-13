@@ -21,11 +21,15 @@ public class JudgeQueue {
     JudgeQueue(SubmitService submitService, TestService testService) {
         this.submitService = submitService;
         this.testService = testService;
-        linkedBlockingQueue = new LinkedBlockingQueue<>(10);
+        linkedBlockingQueue = new LinkedBlockingQueue<>(2);
     }
 
 
     public void enqueueSubmit(JudgeParams judgeParams, Integer submitID) {
+        new Thread(() -> {enqueue(judgeParams, submitID);}).start();
+    }
+
+    private void enqueue(JudgeParams judgeParams, Integer submitID) {
         int tests = testService.getTests(judgeParams.getProblemId()).size();
         final Status[] statuses = new Status[tests];
         final String[] messages = new String[tests];
@@ -33,7 +37,7 @@ public class JudgeQueue {
 
         for (int i = 0; i < tests; i++) {
             final int testCase = i;
-            threads[i] = new Thread(() -> {enqueue(judgeParams, submitID, testCase, statuses, messages);});
+            threads[i] = new Thread(() -> {runTestCase(judgeParams, submitID, testCase, statuses, messages);});
             threads[i].start();
         }
 
@@ -71,7 +75,7 @@ public class JudgeQueue {
         return -1;
     }
 
-    private void enqueue(JudgeParams judgeParams, Integer submitID, Integer testCase, Status[] statuses, String[] messages) {
+    private void runTestCase(JudgeParams judgeParams, Integer submitID, Integer testCase, Status[] statuses, String[] messages) {
         try {
             linkedBlockingQueue.put(submitID + testCase);
         } catch (InterruptedException e) {
