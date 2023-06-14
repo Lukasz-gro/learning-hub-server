@@ -25,7 +25,7 @@ public class JudgeService {
                 default -> throw new RuntimeException("Wrong language");
             };
             stopContainer();
-            System.out.println("output from container: " + output);
+            System.out.println("output from container " + containerName + ": " + output);
             return result == 1 ? "RTE?*#. " + output : output;
         } catch (Exception e) {
             return "Interrupted";
