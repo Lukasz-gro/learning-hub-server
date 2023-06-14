@@ -15,15 +15,16 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class JudgeQueue {
     private final SubmitService submitService;
     private final TestService testService;
-    private final LinkedBlockingQueue<Integer> linkedBlockingQueue;
+    private final JudgeService judgeService;
+    private final LinkedBlockingQueue<String> linkedBlockingQueue;
 
     @Autowired
-    JudgeQueue(SubmitService submitService, TestService testService) {
+    JudgeQueue(SubmitService submitService, TestService testService, JudgeService judgeService) {
         this.submitService = submitService;
         this.testService = testService;
-        linkedBlockingQueue = new LinkedBlockingQueue<>(2);
+        this.judgeService = judgeService;
+        linkedBlockingQueue = new LinkedBlockingQueue<>(1);
     }
-
 
     public void enqueueSubmit(JudgeParams judgeParams, Integer submitID) {
         new Thread(() -> {enqueue(judgeParams, submitID);}).start();
@@ -76,8 +77,9 @@ public class JudgeQueue {
     }
 
     private void runTestCase(JudgeParams judgeParams, Integer submitID, Integer testCase, Status[] statuses, String[] messages) {
+        String name = submitID + "_" + testCase;
         try {
-            linkedBlockingQueue.put(submitID + testCase);
+            linkedBlockingQueue.put(name);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -85,7 +87,6 @@ public class JudgeQueue {
         String input = testService.getTests(judgeParams.getProblemId()).get(testCase).getInput();
         String output = testService.getTests(judgeParams.getProblemId()).get(testCase).getOutput();
         final String[] userOutput = {null};
-        JudgeService judgeService = new JudgeService();
 
         Thread t1 = new Thread(() -> {
             userOutput[0] = judgeService.runCode(judgeParams, submitID, input, testCase);
@@ -120,12 +121,14 @@ public class JudgeQueue {
                     sb.append(" ");
                 }
                 messages[testCase] = sb.toString();
+                System.out.println("JudgeQueue: testcase " + testCase + " output: " + Arrays.toString(outputArr));
+                System.out.println("JudgeQueue: testcase " + testCase + " userOutput: " + Arrays.toString(userOutputArr));
                 statuses[testCase] = Arrays.equals(outputArr, userOutputArr) ? Status.OK : Status.ANS;
+                System.out.println("JudgeQueue: testcase " + testCase + " status: " + statuses[testCase]);
             }
         }
-
-        if (linkedBlockingQueue.peek().equals(submitID + testCase)) {
-            linkedBlockingQueue.poll();
+        if (!linkedBlockingQueue.remove(name)) {
+            System.out.println("Thread with name " + name + " wasn't removed from queue");
         }
     }
 }
