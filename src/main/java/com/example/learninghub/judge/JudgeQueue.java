@@ -26,7 +26,6 @@ public class JudgeQueue {
         linkedBlockingQueue = new LinkedBlockingQueue<>(1);
     }
 
-
     public void enqueueSubmit(JudgeParams judgeParams, Integer submitID) {
         new Thread(() -> {enqueue(judgeParams, submitID);}).start();
     }
@@ -78,9 +77,9 @@ public class JudgeQueue {
     }
 
     private void runTestCase(JudgeParams judgeParams, Integer submitID, Integer testCase, Status[] statuses, String[] messages) {
+        String name = submitID + "_" + testCase;
         try {
-            linkedBlockingQueue.put(submitID.toString() + "_" + testCase.toString());
-            System.out.println("JudgeQueue: " + submitID.toString() + "_" + testCase.toString() + " added");
+            linkedBlockingQueue.put(name);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -128,8 +127,8 @@ public class JudgeQueue {
                 System.out.println("JudgeQueue: testcase " + testCase + " status: " + statuses[testCase]);
             }
         }
-        if (linkedBlockingQueue.remove(submitID.toString() + "_" + testCase.toString())) {
-            System.out.println("JudgeQueue: " + submitID.toString() + "_" + testCase.toString() + " removed");
+        if (!linkedBlockingQueue.remove(name)) {
+            System.out.println("Thread with name " + name + " wasn't removed from queue");
         }
     }
 }
