@@ -16,7 +16,7 @@ public class JudgeQueue {
     private final SubmitService submitService;
     private final TestService testService;
     private final JudgeService judgeService;
-    private final LinkedBlockingQueue<Integer> linkedBlockingQueue;
+    private final LinkedBlockingQueue<String> linkedBlockingQueue;
 
     @Autowired
     JudgeQueue(SubmitService submitService, TestService testService, JudgeService judgeService) {
@@ -79,7 +79,8 @@ public class JudgeQueue {
 
     private void runTestCase(JudgeParams judgeParams, Integer submitID, Integer testCase, Status[] statuses, String[] messages) {
         try {
-            linkedBlockingQueue.put(submitID + testCase);
+            linkedBlockingQueue.put(submitID.toString() + "_" + testCase.toString());
+            System.out.println("JudgeQueue: " + submitID.toString() + "_" + testCase.toString() + " added");
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -124,10 +125,8 @@ public class JudgeQueue {
                 statuses[testCase] = Arrays.equals(outputArr, userOutputArr) ? Status.OK : Status.ANS;
             }
         }
-
-        assert linkedBlockingQueue.peek() != null;
-        if (linkedBlockingQueue.peek().equals(submitID + testCase)) {
-            linkedBlockingQueue.poll();
+        if (linkedBlockingQueue.remove(submitID.toString() + "_" + testCase.toString())) {
+            System.out.println("JudgeQueue: " + submitID.toString() + "_" + testCase.toString() + " removed");
         }
     }
 }
