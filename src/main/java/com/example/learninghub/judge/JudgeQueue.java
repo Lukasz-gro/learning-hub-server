@@ -15,12 +15,14 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class JudgeQueue {
     private final SubmitService submitService;
     private final TestService testService;
+    private final JudgeService judgeService;
     private final LinkedBlockingQueue<Integer> linkedBlockingQueue;
 
     @Autowired
-    JudgeQueue(SubmitService submitService, TestService testService) {
+    JudgeQueue(SubmitService submitService, TestService testService, JudgeService judgeService) {
         this.submitService = submitService;
         this.testService = testService;
+        this.judgeService = judgeService;
         linkedBlockingQueue = new LinkedBlockingQueue<>(2);
     }
 
@@ -85,7 +87,6 @@ public class JudgeQueue {
         String input = testService.getTests(judgeParams.getProblemId()).get(testCase).getInput();
         String output = testService.getTests(judgeParams.getProblemId()).get(testCase).getOutput();
         final String[] userOutput = {null};
-        JudgeService judgeService = new JudgeService();
 
         Thread t1 = new Thread(() -> {
             userOutput[0] = judgeService.runCode(judgeParams, submitID, input, testCase);
@@ -124,6 +125,7 @@ public class JudgeQueue {
             }
         }
 
+        assert linkedBlockingQueue.peek() != null;
         if (linkedBlockingQueue.peek().equals(submitID + testCase)) {
             linkedBlockingQueue.poll();
         }
