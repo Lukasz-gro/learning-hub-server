@@ -2,33 +2,31 @@ package com.example.learninghub.submit;
 
 import com.example.learninghub.problem.Problem;
 import com.example.learninghub.problem.ProblemRepository;
-import com.example.learninghub.problem.ProblemService;
 import com.example.learninghub.user.User;
 import com.example.learninghub.user.UserRepository;
-import com.example.learninghub.user.UserService;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.security.sasl.AuthenticationException;
 import java.security.Principal;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class SubmitService {
 
     private final SubmitRepository submitRepository;
     private final ProblemRepository problemRepository;
     private final UserRepository userRepository;
-    private final AtomicInteger maxSubmitId = new AtomicInteger();
+    private final AtomicInteger maxSubmitId;
+    public SubmitService(SubmitRepository submitRepository, ProblemRepository problemRepository, UserRepository userRepository) {
+        this.submitRepository = submitRepository;
+        this.problemRepository = problemRepository;
+        this.userRepository = userRepository;
+        maxSubmitId = new AtomicInteger(0);
+        submitRepository.findTopByOrderByIdDesc().ifPresent(submit -> maxSubmitId.set(submit.getId()));
+    }
 
     public Submit getSubmit(Integer id) {
         return submitRepository.findById(id).orElseThrow();
