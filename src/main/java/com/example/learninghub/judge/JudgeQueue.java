@@ -122,6 +122,8 @@ public class JudgeQueue {
                     sb.append(" ");
                 }
                 messages[testCase] = sb.toString();
+                System.out.println("JudgeQueue: testcase " + testCase + " output: " + Arrays.toString(outputArr));
+                System.out.println("JudgeQueue: testcase " + testCase + " userOutput: " + Arrays.toString(userOutputArr));
                 statuses[testCase] = Arrays.equals(outputArr, userOutputArr) ? Status.OK : Status.ANS;
                 System.out.println("JudgeQueue: testcase " + testCase + " status: " + statuses[testCase]);
             }
