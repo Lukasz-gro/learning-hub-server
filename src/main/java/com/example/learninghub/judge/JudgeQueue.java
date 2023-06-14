@@ -123,6 +123,7 @@ public class JudgeQueue {
                 }
                 messages[testCase] = sb.toString();
                 statuses[testCase] = Arrays.equals(outputArr, userOutputArr) ? Status.OK : Status.ANS;
+                System.out.println("JudgeQueue: testcase " + testCase + " status: " + statuses[testCase]);
             }
         }
         if (linkedBlockingQueue.remove(submitID.toString() + "_" + testCase.toString())) {
