@@ -23,7 +23,7 @@ public class JudgeQueue {
         this.submitService = submitService;
         this.testService = testService;
         this.judgeService = judgeService;
-        linkedBlockingQueue = new LinkedBlockingQueue<>(2);
+        linkedBlockingQueue = new LinkedBlockingQueue<>(3);
     }
 
 
