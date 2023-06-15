@@ -43,7 +43,7 @@ public class ChatMessageService {
         User user = userService.getUser(request.getUsername());
         Problem problem = problemService.getProblem(request.getProblemId());
         chatMessageRepository.save(new ChatMessage(request.getMessage(), new Timestamp(System.currentTimeMillis()),
-                request.getIsUser(), user, problem));
+                request.getIsUser(), request.getMessageType(), user, problem));
     }
 
     public boolean authenticate(HttpServletRequest request, String username) {
