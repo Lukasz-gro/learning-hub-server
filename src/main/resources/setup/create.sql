@@ -88,9 +88,10 @@ CREATE TABLE chat_message (
     id                  serial PRIMARY KEY,
     user_id             int REFERENCES _user(id),
     problem_id          int REFERENCES problem(id),
-    message             TEXT NOT NULL,
+    message             text NOT NULL,
     date                timestamp NOT NULL,
-    is_user             boolean NOT NULL
+    is_user             boolean NOT NULL,
+    message_type        text NOT NULL
 );
 
 -- BEGIN (each user gets access to every course for now)

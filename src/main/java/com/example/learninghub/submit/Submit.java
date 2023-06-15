@@ -26,8 +26,8 @@ public class Submit {
     private String errorMessage;
     @Column(name = "output")
     private String output;
-    @Enumerated(value = EnumType.STRING)
     @Column(name = "status")
+    @Enumerated(value = EnumType.STRING)
     private Status status;
     @Column(name = "date")
     private Timestamp date;

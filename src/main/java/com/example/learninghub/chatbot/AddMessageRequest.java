@@ -8,4 +8,5 @@ public class AddMessageRequest {
     private Integer problemId;
     private String message;
     private Boolean isUser;
+    private MessageType messageType;
 }
