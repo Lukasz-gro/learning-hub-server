@@ -25,6 +25,8 @@ public class ChatMessage {
     private Timestamp date;
     @Column(name = "is_user")
     private Boolean isUser;
+    @Column(name = "message_type")
+    private String messageType;
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
@@ -34,10 +36,11 @@ public class ChatMessage {
     @JsonIgnore
     @ToString.Exclude private Problem problem;
 
-    public ChatMessage(String message, Timestamp date, Boolean isUser, User user, Problem problem) {
+    public ChatMessage(String message, Timestamp date, Boolean isUser, String messageType, User user, Problem problem) {
         this.message = message;
         this.date = date;
         this.isUser = isUser;
+        this.messageType = messageType;
         this.user = user;
         this.problem = problem;
     }

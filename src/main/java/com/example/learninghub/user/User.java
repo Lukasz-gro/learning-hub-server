@@ -34,8 +34,8 @@ public class User implements UserDetails {
     private String password;
     @Column(name = "email")
     private String email;
-    @Enumerated(EnumType.STRING)
     @Column(name = "role")
+    @Enumerated(value = EnumType.STRING)
     private Role role;
     @ManyToMany
     @JoinTable(
