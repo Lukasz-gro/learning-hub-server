@@ -35,4 +35,13 @@ public class ChatMessageController {
             chatMessageService.addChatMessage(addMessageRequest);
         }
     }
+
+    @DeleteMapping("/v1/chat-bot/{username}/{problemId}/delete-last-message")
+    public void deleteLastMessage(@PathVariable("username") String username,
+                                  @PathVariable("problemId") Integer problemId,
+                                  HttpServletRequest request) {
+        if (chatMessageService.authenticate(request, username, problemId)) {
+            chatMessageService.deleteLastMessage(username, problemId);
+        }
+    }
 }
