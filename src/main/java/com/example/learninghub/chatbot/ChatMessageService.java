@@ -1,5 +1,7 @@
 package com.example.learninghub.chatbot;
 
+import com.example.learninghub.course.Course;
+import com.example.learninghub.course.courseproblem.CourseProblem;
 import com.example.learninghub.problem.Problem;
 import com.example.learninghub.problem.ProblemService;
 import com.example.learninghub.user.User;
@@ -46,9 +48,40 @@ public class ChatMessageService {
                 request.getIsUser(), request.getMessageType(), user, problem));
     }
 
+    public void deleteLastMessage(String username, Integer problemId) {
+        Integer lastMessageId = userService.getUser(username)
+                .getChatMessages().stream()
+                .filter(chatMessage -> chatMessage.getProblem().getId().equals(problemId))
+                .sorted((x, y) -> {
+                    if (x.getDate().before(y.getDate())) {
+                        return 1;
+                    } else if (x.getDate().after(y.getDate())) {
+                        return -1;
+                    }
+                    return 0;
+                }).toList().get(0).getId();
+        chatMessageRepository.deleteById(lastMessageId);
+    }
+
     public boolean authenticate(HttpServletRequest request, String username) {
         Principal principal = request.getUserPrincipal();
         String requestUser = principal.getName();
         return username.equals(requestUser);
+    }
+
+    public boolean authenticate(HttpServletRequest request, String username, Integer problemId) {
+        Principal principal = request.getUserPrincipal();
+        String requestUser = principal.getName();
+        if (!username.equals(requestUser)) {
+            return false;
+        }
+        User user = userService.getUser(username);
+        Problem problem = problemService.getProblem(problemId);
+        for (Course c : user.getCourses()) {
+            if (c.getProblems().stream().map(CourseProblem::getProblem).toList().contains(problem)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
